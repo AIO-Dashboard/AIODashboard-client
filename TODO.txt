@@ -1,4 +1,18 @@
-// TODO Use Dynamic imports and lazy loading later along with other optimization techniques (All in one commit)
+// TODO Use Dynamic imports and lazy loading later along with other optimization techniques (All in one commit):
+    Component & Code Optimizations:
+    React.memo, React.lazy, Suspense, dynamic import()
+
+    Hooks-Based Optimizations:
+    useMemo, useCallback, useRef, useLayoutEffect
+
+    Performance Techniques:
+    Debouncing, Throttling, List virtualization, Code splitting, Tree shaking, Image lazy loading, Minimize re-renders
+
+    State Management Best Practices:
+    Lift state only when needed, Colocate state, Avoid unnecessary global state, useReducer
+
+    Other Optimizations:
+    Bundle analyzer, Preloading, Prefetching, Service workers, Avoid anonymous functions in JSX
 
 // 
 

@@ -21,7 +21,6 @@ function App() {
           <Routes>
             {/* Always redirect "/" to /login */}
             <Route path="/" element={<Navigate to="/login" replace />} />
-
             {/* If logged in, redirect from /login to /dashboard */}
             <Route
               path="/login"
@@ -29,7 +28,6 @@ function App() {
                 isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login />
               }
             />
-
             {/* Protected dashboard route */}
             <Route
               path="/dashboard"
