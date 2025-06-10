@@ -14,5 +14,5 @@
     Other Optimizations:
     Bundle analyzer, Preloading, Prefetching, Service workers, Avoid anonymous functions in JSX
 
-// 
+// Make sure all appropriate states,props,etc. have types defined
 
