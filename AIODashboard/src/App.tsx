@@ -3,7 +3,16 @@ import { useState } from "react";
 
 import "./App.css";
 
+// TODO Use Dynamic imports and lazy loading later along with other optimization techniques
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import ProductCreate from "./pages/ProductCreate";
+import ProductDetail from "./pages/ProductDetail";
+import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
+
 function App() {
+  const isLoggedIn = localStorage.getItem("token");
   return (
     <>
       <div>
