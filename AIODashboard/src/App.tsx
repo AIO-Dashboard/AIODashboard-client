@@ -4,13 +4,14 @@ import "./App.module.scss";
 
 // TODO Use Dynamic imports and lazy loading later along with other optimization techniques
 import Login from "./pages/Login/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import ProductCreate from "./pages/ProductCreate";
 import ProductDetail from "./pages/ProductDetail";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header/Header";
 
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 
 function App() {
@@ -30,15 +31,13 @@ function App() {
               isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login />
             }
           />
-          {/* Protected dashboard route */}
-          <Route
-            path="/dashboard"
-            element={
-              isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />
-            }
-          />
-          <Route path="/dashboard/create" element={<ProductCreate />} />
-          <Route path="/dashboard/:id" element={<ProductDetail />} />
+          {/* Protected dashboard routes */}
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/create" element={<ProductCreate />} />
+            <Route path="/dashboard/:id" element={<ProductDetail />} />
+          </Route>
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

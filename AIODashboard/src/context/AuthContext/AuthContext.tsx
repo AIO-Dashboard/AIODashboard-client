@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 type AuthContextType = {
@@ -14,6 +14,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = () => setIsLoggedIn(true);
   const logout = () => setIsLoggedIn(false);
+
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
