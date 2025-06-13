@@ -73,9 +73,10 @@ function App() {
             {/* -all customers */}
             <Route path="/customers:id" element={<CustomerDetail />} />
             {/* -details about one, can see orders and redirect to OrderDetail */}
+
+            <Route path="/settings" element={<Settings />} />
           </Route>
 
-          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

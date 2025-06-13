@@ -17,6 +17,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router";
 
+import { useAuth } from "../../context/AuthContext/AuthContext";
+
 interface SidebarProps {
   isSidebarOpen: boolean;
   setisSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +26,7 @@ interface SidebarProps {
 
 export default function Sidebar(props: SidebarProps) {
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useAuth();
   const toggleDrawer = (newOpen: boolean) => () => {
     props.setisSidebarOpen(newOpen);
   };
@@ -41,6 +44,7 @@ export default function Sidebar(props: SidebarProps) {
 
   const handleLogout = () => {
     console.log("handleLogout");
+    logout();
   };
 
   const DrawerList = (
@@ -81,17 +85,23 @@ export default function Sidebar(props: SidebarProps) {
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <List>
-        {sidebarItems3.map((item) => (
-          <ListItem key={item.label} disablePadding onClick={handleLogout}>
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {isLoggedIn ? (
+        <>
+          <Divider />
+          <List>
+            {sidebarItems3.map((item) => (
+              <ListItem key={item.label} disablePadding onClick={handleLogout}>
+                <ListItemButton>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 
