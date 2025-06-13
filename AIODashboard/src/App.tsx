@@ -16,15 +16,25 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Toast from "./components/Toast/Toast";
+import { useState } from "react";
 
 function App() {
   const { isLoggedIn } = useAuth();
+
+  const [isSidebarOpen, setisSidebarOpen] = useState(false);
+
   return (
     <>
       {/* <div> */}
       <Toast />
-      <Header />
-      <Sidebar />
+      <Header
+        setisSidebarOpen={setisSidebarOpen}
+        isSidebarOpen={isSidebarOpen}
+      />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setisSidebarOpen={setisSidebarOpen}
+      />
       <main>
         <Routes>
           {/* Always redirect "/" to /login */}
