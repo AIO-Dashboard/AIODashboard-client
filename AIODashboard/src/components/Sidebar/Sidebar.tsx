@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 
 import Box from "@mui/material/Box";
@@ -10,41 +9,85 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router";
+
 interface SidebarProps {
   isSidebarOpen: boolean;
   setisSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Sidebar(props: SidebarProps) {
-  //   const [open, setOpen] = useState(true);
-
+  const navigate = useNavigate();
   const toggleDrawer = (newOpen: boolean) => () => {
     props.setisSidebarOpen(newOpen);
   };
 
+  const sidebarItems1 = [
+    { label: "Dashboard", icon: <DashboardIcon />, path: "dashboard" },
+    { label: "Products", icon: <InventoryIcon />, path: "products" },
+    { label: "Orders", icon: <CreditCardIcon />, path: "orders" },
+    { label: "Customers", icon: <AccountBoxIcon />, path: "customers" },
+  ];
+  const sidebarItems2 = [
+    { label: "Settings", icon: <SettingsIcon />, path: "settings" },
+  ];
+  const sidebarItems3 = [{ label: "Logout", icon: <LogoutIcon /> }];
+
+  const handleLogout = () => {
+    console.log("handleLogout");
+  };
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <br />
+      <br />
+      <br />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {sidebarItems1.map((item) => (
+          <ListItem
+            key={item.label}
+            disablePadding
+            onClick={() => {
+              navigate(item.path);
+            }}
+          >
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? "<InboxIcon />" : "<MailIcon />"}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {sidebarItems2.map((item) => (
+          <ListItem
+            key={item.label}
+            disablePadding
+            onClick={() => {
+              navigate(item.path);
+            }}
+          >
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? "<InboxIcon />" : "<MailIcon />"}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {sidebarItems3.map((item) => (
+          <ListItem key={item.label} disablePadding onClick={handleLogout}>
+            <ListItemButton>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
