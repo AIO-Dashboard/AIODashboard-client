@@ -4,7 +4,8 @@ import "./App.module.scss";
 
 // TODO Use Dynamic imports and lazy loading later along with other optimization techniques
 import Login from "./pages/Login/Login";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/Main/Dashboard/Dashboard";
+import Products from "./pages/Main/Products/Products";
 import ProductCreate from "./pages/ProductCreate";
 import ProductDetail from "./pages/ProductDetail";
 import Settings from "./pages/Settings";
@@ -13,13 +14,17 @@ import Header from "./components/Header/Header";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Toast from "./components/Toast/Toast";
 
 function App() {
   const { isLoggedIn } = useAuth();
   return (
     <>
       {/* <div> */}
+      <Toast />
       <Header />
+      <Sidebar />
       <main>
         <Routes>
           {/* Always redirect "/" to /login */}
@@ -35,8 +40,9 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard/create" element={<ProductCreate />} />
-            <Route path="/dashboard/:id" element={<ProductDetail />} />
+            <Route path="/products/create" element={<ProductCreate />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
           </Route>
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />

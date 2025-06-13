@@ -4,7 +4,7 @@ export default function Dashboard() {
   return (
     <div className={styles.dashboard}>
       <h2>Dashboard</h2>
-      <Link to="/dashboard/create">
+      <Link to="/products/create">
         <button>Create</button>
       </Link>
     </div>
