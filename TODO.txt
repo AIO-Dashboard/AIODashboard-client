@@ -1,3 +1,8 @@
+https://mui.com/material-ui/all-components/
+https://mui.com/material-ui/material-icons/
+
+https://mui.com/toolpad/core/react-sign-in-page/
+
 // TODO Use Dynamic imports and lazy loading later along with other optimization techniques (All in one commit):
     Component & Code Optimizations:
     React.memo, React.lazy, Suspense, dynamic import()

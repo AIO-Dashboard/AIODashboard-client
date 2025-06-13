@@ -1,5 +1,5 @@
 import styles from "./Login.module.scss";
-
+import Button from "@mui/material/Button";
 import { useAuth } from "../../context/AuthContext/AuthContext";
 
 export default function Login() {
@@ -28,7 +28,10 @@ export default function Login() {
         // required
       />
 
-      <button type="submit">Login</button>
+      <Button type="submit" variant={"contained"}>
+        {/* <Button type="submit" variant={"outlined"}> */}
+        Login
+      </Button>
     </form>
   );
 }

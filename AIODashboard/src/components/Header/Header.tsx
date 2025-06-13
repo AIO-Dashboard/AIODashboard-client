@@ -1,5 +1,6 @@
 import styles from "./Header.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
+import Button from "@mui/material/Button";
 
 import { useAuth } from "../../context/AuthContext/AuthContext";
 
@@ -28,12 +29,14 @@ export default function Header({
   };
   return (
     <header className={styles.header}>
-      <button onClick={handleSidebarToggle}>
+      <Button onClick={handleSidebarToggle}>
         <MenuIcon />
-      </button>
+      </Button>
       <h1>AIO Dashboard</h1>
 
-      {isLoggedIn && <button onClick={handleLogout}>Log out</button>}
+      <span>
+        {isLoggedIn && <Button onClick={handleLogout}>Log out</Button>}
+      </span>
     </header>
   );
 }
