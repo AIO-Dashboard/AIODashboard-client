@@ -11,13 +11,8 @@ export default function Products() {
 
   console.log("Products:", data && data);
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "80vh",
-      }}
-    >
-      <h1>Products list</h1>
+    <Box>
+      <h1>Product list</h1>
       {isLoading ? <Spinner /> : <>{data && <ProductsTable {...data} />}</>}
       {isError ? <>Error</> : ""}
     </Box>

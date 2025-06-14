@@ -21,7 +21,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import InfoIcon from "@mui/icons-material/Info";
 
-import type { ProductsResponse } from "../../types/Products.ts";
+import type { UserResponse } from "../../types/Customers.ts";
 import type {
   TableProduct,
   HeadCell,
@@ -202,9 +202,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function EnhancedTable(props: ProductsResponse) {
+export default function EnhancedTable(props: UserResponse) {
   const navigate = useNavigate();
-  const rows = props.products;
+  const rows = props.users;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("price");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
@@ -332,12 +332,13 @@ export default function EnhancedTable(props: ProductsResponse) {
                       scope="row"
                       padding="none"
                     >
-                      {row.title}
+                      {row.username}
                     </TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="left">{row.brand}</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">{row.rating}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.lastName}</TableCell>
+                    <TableCell align="right">{row.firstName}</TableCell>
+                    <TableCell align="left">{row.maidenName}</TableCell>
+
                     <TableCell
                       align="right"
                       onClick={(e) => e.preventDefault()}

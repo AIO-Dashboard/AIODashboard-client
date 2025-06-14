@@ -1,5 +1,5 @@
 // TYPES FOR RESPONSE DATA -----------------------------
-export interface ProductResponse {
+export interface ProductsResponse {
   products: Product[];
   total: number;
   skip: number;
