@@ -32,7 +32,7 @@ export default function Header({
       <Button onClick={handleSidebarToggle}>
         <MenuIcon />
       </Button>
-      <h1>AIO Dashboard</h1>
+      <span>AIO Dashboard</span>
 
       <span>
         {isLoggedIn && <Button onClick={handleLogout}>Log out</Button>}

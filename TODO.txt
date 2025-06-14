@@ -3,6 +3,12 @@ https://mui.com/material-ui/material-icons/
 
 https://mui.com/toolpad/core/react-sign-in-page/
 
+https://tanstack.com/query/latest/docs/framework/react/overview
+I'll be using
+Tanstack Query (Prev React Query) + React Context + useReducer 
+INSTEAD of Redux Toolki
+https://dummyjson.com/  (has images)
+
 // TODO Use Dynamic imports and lazy loading later along with other optimization techniques (All in one commit):
     Component & Code Optimizations:
     React.memo, React.lazy, Suspense, dynamic import()

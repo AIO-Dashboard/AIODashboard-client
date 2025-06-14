@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Dashboard() {
   return (
     <div className={styles.dashboard}>
-      <h2>Dashboard</h2>
+      <h1>Dashboard</h1>
       <Link to="/products/create">
         <Button variant={"outlined"}>Create</Button>
       </Link>
