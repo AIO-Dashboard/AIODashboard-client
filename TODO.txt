@@ -27,3 +27,4 @@ https://dummyjson.com/  (has images)
 
 // Make sure all appropriate states,props,etc. have types defined
 
+// Refactore items like div,etc to use Material UI items like Box (if applicable)

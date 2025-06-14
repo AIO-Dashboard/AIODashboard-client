@@ -15,3 +15,18 @@ export const useProducts = () => {
     },
   });
 };
+
+export const useProductDetail = (id: string) => {
+  return useQuery({
+    queryKey: ["productDetail"],
+    queryFn: async () => {
+      try {
+        const res = await fetch(`https://dummyjson.com/products/${id}`);
+        return res.json();
+      } catch (err) {
+        console.log("err:", err);
+        throw err;
+      }
+    },
+  });
+};

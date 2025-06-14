@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import { Container } from "@mui/material";
+
 import "./App.module.scss";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -41,7 +43,7 @@ function App() {
         isSidebarOpen={isSidebarOpen}
         setisSidebarOpen={setisSidebarOpen}
       />
-      <main>
+      <Container maxWidth="lg" sx={{ marginTop: "20px", marginBottom: "20px" }}>
         <Routes>
           {/* Always redirect "/" to /login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -79,7 +81,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </main>
+      </Container>
       {/* </div> */}
       <footer>@AIO Dashboard 2025</footer>
     </>
