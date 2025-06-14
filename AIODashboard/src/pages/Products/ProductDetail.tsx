@@ -19,6 +19,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 
+import type { Review } from "../../types/Products";
+
 export default function ProductDetail() {
   const { id } = useParams(); // take id from url
 
@@ -226,7 +228,7 @@ export default function ProductDetail() {
                               sx={{ color: "text.primary", display: "inline" }}
                             >
                               <Tooltip title={review.reviewerEmail}>
-                                {review.reviewerName}
+                                <span>{review.reviewerName}</span>
                               </Tooltip>
                             </Typography>
                             {" — "}
