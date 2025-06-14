@@ -32,7 +32,7 @@ export default function CustomerDetail() {
         <Grid
           sx={{
             marginLeft: {
-              xs: "7vw",
+              xs: "5vw",
             },
           }}
         >
