@@ -54,6 +54,7 @@ export interface TableProduct {
   description: string;
   title: string;
   rating: number;
+  action: any;
 }
 export interface HeadCell {
   disablePadding: boolean;

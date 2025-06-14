@@ -19,6 +19,7 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import InfoIcon from "@mui/icons-material/Info";
 
 import type { ProductResponse } from "../../types/Products.ts";
 import type {
@@ -28,6 +29,7 @@ import type {
   EnhancedTableToolbarProps,
   Order,
 } from "../../types/Products.ts";
+import { useNavigate } from "react-router";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -82,6 +84,12 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Rating",
+  },
+  {
+    id: "action",
+    numeric: false,
+    disablePadding: false,
+    label: "",
   },
 ];
 
@@ -195,6 +203,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 export default function EnhancedTable(props: ProductResponse) {
+  const navigate = useNavigate();
   const rows = props.products;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("price");
@@ -266,6 +275,10 @@ export default function EnhancedTable(props: ProductResponse) {
     [order, orderBy, page, rowsPerPage]
   );
 
+  const handleProductInfoClick = (id: number) => {
+    navigate(`/products/${id}`);
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -325,6 +338,18 @@ export default function EnhancedTable(props: ProductResponse) {
                     <TableCell align="left">{row.brand}</TableCell>
                     <TableCell align="left">{row.description}</TableCell>
                     <TableCell align="left">{row.rating}</TableCell>
+                    <TableCell
+                      align="right"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <Tooltip title="Product Detail">
+                        <IconButton
+                          onClick={() => handleProductInfoClick(row.id)}
+                        >
+                          <InfoIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
                   </TableRow>
                 );
               })}
