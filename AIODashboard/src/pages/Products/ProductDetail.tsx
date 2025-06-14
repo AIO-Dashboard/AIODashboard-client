@@ -201,7 +201,7 @@ export default function ProductDetail() {
                   bgcolor: "background.paper",
                 }}
               >
-                {data.reviews.map((review) => (
+                {data.reviews.map((review: Review) => (
                   <>
                     <ListItem alignItems="flex-start">
                       <Tooltip

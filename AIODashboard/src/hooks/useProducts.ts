@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import type { ProductResponse, Product } from "../types/Products";
 
 export const useProducts = () => {
-  return useQuery({
+  return useQuery<ProductResponse>({
     queryKey: ["products"], // for caching, unique ID
     queryFn: async () => {
       try {
@@ -17,8 +18,8 @@ export const useProducts = () => {
 };
 
 export const useProductDetail = (id: string) => {
-  return useQuery({
-    queryKey: ["productDetail"],
+  return useQuery<Product>({
+    queryKey: ["productDetail", id],
     queryFn: async () => {
       try {
         const res = await fetch(`https://dummyjson.com/products/${id}`);
@@ -28,5 +29,6 @@ export const useProductDetail = (id: string) => {
         throw err;
       }
     },
+    enabled: !!id, // ✅ Prevent fetch if id is empty
   });
 };
