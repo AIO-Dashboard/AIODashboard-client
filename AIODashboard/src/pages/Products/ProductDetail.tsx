@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useParams } from "react-router";
 import { useProductDetail } from "../../hooks/useProducts";
 
@@ -9,6 +10,14 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function ProductDetail() {
   const { id } = useParams(); // take id from url
@@ -56,13 +65,19 @@ export default function ProductDetail() {
                   <Chip label={tag} size="small" variant="outlined" key={tag} />
                 ))}
               </Stack>
-
-              <Rating
-                name="read-only"
-                value={data.rating}
-                precision={0.5}
-                readOnly
-              />
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <Rating
+                  name="read-only"
+                  value={data.rating}
+                  precision={0.5}
+                  readOnly
+                />
+                <Typography variant="caption">{data.rating}</Typography>
+              </Stack>
               <p>{data.description}</p>
               <Typography variant="h6" component="data" value={data.price}>
                 ${data.price.toFixed(2)}{" "}
@@ -85,16 +100,17 @@ export default function ProductDetail() {
                   gutterBottom
                   sx={{ display: "block" }}
                 >
-                  Stock: {data.stock} {data.availabilityStatus.toLowerCase()}
+                  Dimensions: {data.dimensions.width} × {data.dimensions.height}{" "}
+                  × {data.dimensions.depth}cm
                 </Typography>
               </Stack>
+
               <Typography
                 variant="caption"
                 gutterBottom
                 sx={{ display: "block" }}
               >
-                Dimensions: {data.dimensions.width} × {data.dimensions.height} ×{" "}
-                {data.dimensions.depth}cm
+                Stock: {data.stock} {data.availabilityStatus.toLowerCase()}
               </Typography>
               <Typography
                 variant="caption"
@@ -103,6 +119,14 @@ export default function ProductDetail() {
               >
                 <LocalShippingIcon sx={{ marginRight: "10px" }} />{" "}
                 {data.shippingInformation}
+              </Typography>
+              <Typography
+                variant="caption"
+                gutterBottom
+                sx={{ display: "flex" }}
+              >
+                <WorkspacePremiumIcon sx={{ marginRight: "10px" }} />{" "}
+                {data.returnPolicy}
               </Typography>
             </Stack>
           </Grid>
@@ -126,34 +150,99 @@ export default function ProductDetail() {
                   backgroundColor: "#f0f0f0",
                 }}
               />
-              <Box>
+              <Stack direction={"column"} spacing={1}>
                 <Typography
-                  variant="overline"
+                  variant="caption"
                   gutterBottom
                   sx={{ display: "block" }}
                 >
                   {data.meta.barcode}
                 </Typography>
                 <Typography
-                  variant="overline"
+                  variant="caption"
                   gutterBottom
                   sx={{ display: "block" }}
                 >
                   SKU {data.sku}
                 </Typography>
                 <Typography
-                  variant="overline"
+                  variant="caption"
                   gutterBottom
                   sx={{ display: "block" }}
                 >
                   {data.warrantyInformation}
                 </Typography>
-              </Box>
+              </Stack>
             </Stack>
           </Grid>
-
-          <Grid size={8}>
-            <span>size=8</span>
+          <Grid size={6}>
+            <Typography
+              variant="caption"
+              gutterBottom
+              sx={{ display: "block" }}
+            >
+              Created at {new Date(data.meta.createdAt).toLocaleString()}
+            </Typography>
+            <Typography
+              variant="caption"
+              gutterBottom
+              sx={{ display: "block" }}
+            >
+              Last updated on {new Date(data.meta.updatedAt).toLocaleString()}
+            </Typography>
+          </Grid>
+          <Grid size={12}>
+            <section>
+              <h2>Customer Reviews</h2>
+              <List
+                sx={{
+                  width: "100%",
+                  // maxWidth: 360,
+                  bgcolor: "background.paper",
+                }}
+              >
+                {data.reviews.map((review) => (
+                  <>
+                    <ListItem alignItems="flex-start">
+                      <Tooltip
+                        title={
+                          review.reviewerName + "  |  " + review.reviewerEmail
+                        }
+                      >
+                        <ListItemAvatar>
+                          <Avatar
+                            alt={review.reviewerName}
+                            src="/static/images/avatar/1.jpg"
+                          />
+                        </ListItemAvatar>
+                      </Tooltip>
+                      <ListItemText
+                        primary={review.comment}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              sx={{ color: "text.primary", display: "inline" }}
+                            >
+                              <Tooltip title={review.reviewerEmail}>
+                                {review.reviewerName}
+                              </Tooltip>
+                            </Typography>
+                            {" — "}
+                            {
+                              // " — I'll be in your neighborhood doing errands this…"
+                              new Date(review.date).toLocaleString()
+                            }
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </>
+                ))}
+              </List>
+            </section>
           </Grid>
         </Grid>
       ) : (
