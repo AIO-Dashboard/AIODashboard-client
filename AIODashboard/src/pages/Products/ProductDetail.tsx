@@ -95,7 +95,7 @@ export default function ProductDetail() {
                   gutterBottom
                   sx={{ display: "block" }}
                 >
-                  Weight: {data.weight}
+                  Weight: {data.weight}g
                 </Typography>
                 <Typography
                   variant="caption"
@@ -204,7 +204,7 @@ export default function ProductDetail() {
                 }}
               >
                 {data.reviews.map((review: Review) => (
-                  <>
+                  <span key={review.date + review.reviewerName}>
                     <ListItem alignItems="flex-start">
                       <Tooltip
                         title={
@@ -241,7 +241,7 @@ export default function ProductDetail() {
                       />
                     </ListItem>
                     <Divider variant="inset" component="li" />
-                  </>
+                  </span>
                 ))}
               </List>
             </section>

@@ -17,7 +17,7 @@ https://dummyjson.com/  (has images)
     useMemo, useCallback, useRef, useLayoutEffect
 
     Performance Techniques:
-    Debouncing, Throttling, List virtualization, Code splitting, Tree shaking, Image lazy loading, Minimize re-renders
+    Debouncing, Throttling, List virtualization, Code splitting, Tree shaking, Image lazy loading & fallback, Minimize re-renders
 
     State Management Best Practices:
     Lift state only when needed, Colocate state, Avoid unnecessary global state, useReducer
@@ -28,3 +28,5 @@ https://dummyjson.com/  (has images)
 // Make sure all appropriate states,props,etc. have types defined
 
 // Refactore items like div,etc to use Material UI items like Box (if applicable)
+
+// Setup more Error handling: Errorboundary, etc
