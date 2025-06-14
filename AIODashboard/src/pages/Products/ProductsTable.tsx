@@ -164,16 +164,17 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           variant="subtitle1"
           component="div"
         >
+          {props.visibleItemCount} displayed | {props.totalItemCount} total |{" "}
           {numSelected} selected
         </Typography>
       ) : (
         <Typography
           sx={{ flex: "1 1 100%" }}
-          variant="h6"
+          variant="subtitle1"
           id="tableTitle"
           component="div"
         >
-          Products
+          {props.visibleItemCount} displayed | {props.totalItemCount} total
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -213,7 +214,9 @@ export default function EnhancedTable(props: ProductResponse) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      // if (event.target.checked || event.target.indeterminate) {
+
+      const newSelected = visibleRows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -241,12 +244,13 @@ export default function EnhancedTable(props: ProductResponse) {
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    setSelected([]);
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 25));
     setPage(0);
   };
 
@@ -265,7 +269,11 @@ export default function EnhancedTable(props: ProductResponse) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          totalItemCount={props.total}
+          visibleItemCount={visibleRows.length}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -278,7 +286,7 @@ export default function EnhancedTable(props: ProductResponse) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={visibleRows.length}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
@@ -333,9 +341,10 @@ export default function EnhancedTable(props: ProductResponse) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[25, 50, 75, 100]}
+          rowsPerPageOptions={[25, 50, 75, 100, props.total]}
           component="div"
-          count={rows.length}
+          //   count={rows.length}
+          count={props.total}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

@@ -5,8 +5,8 @@ export const useProducts = () => {
     queryKey: ["products"], // for caching, unique ID
     queryFn: async () => {
       try {
-        // GET /products?page=1&limit=10&category=electronics&price={"min":100,"max":1000}
-        const res = await fetch("https://dummyjson.com/products");
+        // 'https://dummyjson.com/products?limit=10&skip=10&select=title,price'
+        const res = await fetch("https://dummyjson.com/products?limit=0");
         return res.json();
       } catch (err) {
         console.log("err:", err);
