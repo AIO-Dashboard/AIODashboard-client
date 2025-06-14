@@ -1,7 +1,11 @@
 import { CircularProgress, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-export default function Spinner() {
+interface SpinnerProps {
+  text?: String;
+}
+
+export default function Spinner({ text }: SpinnerProps) {
   return (
     <Box
       sx={{
@@ -15,7 +19,7 @@ export default function Spinner() {
     >
       <CircularProgress />
       <Typography variant="overline" gutterBottom sx={{ display: "block" }}>
-        LOADING DATA
+        {text ? text : "LOADING DATA"}
       </Typography>
     </Box>
   );

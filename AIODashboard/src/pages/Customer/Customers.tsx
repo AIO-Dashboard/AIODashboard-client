@@ -13,7 +13,11 @@ export default function Customers() {
   return (
     <Box>
       <h1>Customer list</h1>
-      {isLoading ? <Spinner /> : <>{data && <CustomersTable {...data} />}</>}
+      {isLoading ? (
+        <Spinner text={"LOADING TABLE"} />
+      ) : (
+        <>{data && <CustomersTable {...data} />}</>
+      )}
       {isError ? <>Error</> : ""}
     </Box>
   );

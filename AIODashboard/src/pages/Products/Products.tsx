@@ -13,7 +13,11 @@ export default function Products() {
   return (
     <Box>
       <h1>Product list</h1>
-      {isLoading ? <Spinner /> : <>{data && <ProductsTable {...data} />}</>}
+      {isLoading ? (
+        <Spinner text={"LOADING TABLE"} />
+      ) : (
+        <>{data && <ProductsTable {...data} />}</>
+      )}
       {isError ? <>Error</> : ""}
     </Box>
   );

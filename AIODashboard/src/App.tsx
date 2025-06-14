@@ -73,7 +73,7 @@ function App() {
 
             <Route path="/customers" element={<Customers />} />
             {/* -all customers */}
-            <Route path="/customers:id" element={<CustomerDetail />} />
+            <Route path="/customers/:id" element={<CustomerDetail />} />
             {/* -details about one, can see orders and redirect to OrderDetail */}
 
             <Route path="/settings" element={<Settings />} />
