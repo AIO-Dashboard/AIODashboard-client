@@ -26,9 +26,11 @@ import type {
   TableProduct,
   HeadCell,
   EnhancedTableProps,
+} from "../../types/Products.ts";
+import type {
   EnhancedTableToolbarProps,
   Order,
-} from "../../types/Products.ts";
+} from "../../types/EnhancedTable.ts";
 import { useNavigate } from "react-router";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -56,14 +58,20 @@ function getComparator<Key extends keyof any>(
 const headCells: readonly HeadCell[] = [
   // add stock no.
   {
+    id: "id",
+    numeric: false,
+    disablePadding: false,
+    label: "ID",
+  },
+  {
     id: "title",
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: "Title",
   },
   {
     id: "price",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "Price",
   },
@@ -72,6 +80,12 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Brand",
+  },
+  {
+    id: "stock",
+    numeric: false,
+    disablePadding: false,
+    label: "Stock",
   },
   {
     id: "description",
@@ -206,7 +220,7 @@ export default function EnhancedTable(props: ProductsResponse) {
   const navigate = useNavigate();
   const rows = props.products;
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("price");
+  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
 
@@ -330,12 +344,15 @@ export default function EnhancedTable(props: ProductsResponse) {
                       component="th"
                       id={labelId}
                       scope="row"
-                      padding="none"
+                      // padding="none"
+                      align="left"
                     >
-                      {row.title}
+                      {row.id}
                     </TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="left">{row.title}</TableCell>
+                    <TableCell align="left">{row.price}</TableCell>
                     <TableCell align="left">{row.brand}</TableCell>
+                    <TableCell align="left">{row.stock}</TableCell>
                     <TableCell align="left">{row.description}</TableCell>
                     <TableCell align="left">{row.rating}</TableCell>
                     <TableCell

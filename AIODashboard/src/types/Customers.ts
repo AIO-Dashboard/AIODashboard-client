@@ -1,3 +1,5 @@
+import type { Order } from "./EnhancedTable";
+
 // TYPES FOR RESPONSE DATA -----------------------------
 export interface UserResponse {
   users: User[];
@@ -70,4 +72,36 @@ export interface Company {
   name: string;
   title: string;
   address: Address;
+}
+
+// TYPES FOR TABLE USE -----------------------------
+export interface TableUser {
+  id: number;
+  name: string; // full name: firstName + lastName
+  email: string;
+  phone: string;
+  username: string;
+  age: number;
+  address: string; // derived from city + state or full address
+  company: string;
+  role: "admin" | "moderator" | "user";
+  action?: React.ReactNode; // action buttons (edit/view/delete etc.)
+}
+
+export interface HeadCell {
+  disablePadding: boolean;
+  id: keyof TableUser;
+  label: string;
+  numeric: boolean;
+}
+export interface EnhancedTableProps {
+  numSelected: number;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof TableUser
+  ) => void;
+  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
 }
