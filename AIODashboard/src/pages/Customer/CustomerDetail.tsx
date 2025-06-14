@@ -29,8 +29,14 @@ export default function CustomerDetail() {
   return (
     <>
       {data ? (
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+        <Grid
+          sx={{
+            marginLeft: {
+              xs: "7vw",
+            },
+          }}
+        >
+          <Grid size={12}>
             <Typography
               variant="overline"
               gutterBottom
@@ -39,13 +45,28 @@ export default function CustomerDetail() {
               <h2 style={{ marginBottom: 0 }}>Basic Profile</h2>
             </Typography>
           </Grid>
-          <Grid container xs={12}>
-            {/* <Grid size={12} container> */}
-            <Grid container size={6}>
-              <h1
-                style={{ marginTop: 0 }}
-              >{`${data.firstName} ${data.lastName}`}</h1>
+          <Grid
+            container
+            spacing={2}
+            direction={{ xs: "column-reverse", sm: "row" }}
+          >
+            <Grid
+              size={{ xs: 12, sm: 6, md: 6 }}
+              sx={{
+                display: {
+                  xs: "flex",
+                  sm: "block",
+                },
+                // justifyContent: {
+                // xs: "center", // center children horizontally on extra-small screens
+                // sm: "flex-start", // default alignment from sm and up
+                // },
+              }}
+            >
               <Stack direction="column" spacing={1}>
+                <h1
+                  style={{ marginTop: 0 }}
+                >{`${data.firstName} ${data.lastName}`}</h1>
                 <span>Username: {data.username}</span>
                 <span>Email: {data.email}</span>
                 <span>Mobile: {data.phone}</span>
@@ -57,7 +78,20 @@ export default function CustomerDetail() {
                 <span>Date of birth: {data.birthDate}</span>
               </Stack>
             </Grid>
-            <Grid size={6} sx={{ textAlign: "center" }}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 6 }}
+              sx={{
+                textAlign: "left",
+                display: {
+                  xs: "flex",
+                  sm: "block",
+                },
+                // justifyContent: {
+                // xs: "center", // center children horizontally on extra-small screens
+                //   sm: "flex-start", // default alignment from sm and up
+                // },
+              }}
+            >
               <Box
                 component="img"
                 src={data.image || "/react.svg"}
@@ -79,56 +113,81 @@ export default function CustomerDetail() {
             </Grid>
             {/* </Grid> */}
           </Grid>
+          <Grid container spacing={2}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 6 }}
+              sx={{
+                display: {
+                  xs: "flex",
+                  sm: "block",
+                },
+                // justifyContent: {
+                // xs: "center", // center children horizontally on extra-small screens
+                //   sm: "flex-start", // default alignment from sm and up
+                // },
+              }}
+            >
+              <section>
+                <Typography
+                  variant="overline"
+                  gutterBottom
+                  sx={{ display: "block" }}
+                >
+                  <h2>Personal Details</h2>
+                </Typography>
+                <Stack spacing={1}>
+                  <span>Blood Group: {data.bloodGroup}</span>
+                  <span>Eye Color: {data.eyeColor}</span>
+                  <span>Hair: {`${data.hair.type} ${data.hair.color}`}</span>
+                  <span>Height: {data.height} cm</span>
+                  <span>Weight: {data.weight} kg</span>
+                  <span>SSN: {mask(data.ssn)}</span>
+                  <span>EIN: {mask(data.ein)}</span>
+                  <span>University: {data.university}</span>
+                </Stack>
+              </section>
+            </Grid>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 6 }}
+              sx={{
+                display: {
+                  xs: "flex",
+                  sm: "block",
+                },
+                // justifyContent: {
+                // xs: "center", // center children horizontally on extra-small screens
+                //   sm: "flex-start", // default alignment from sm and up
+                // },
+              }}
+            >
+              <section>
+                <Typography
+                  variant="overline"
+                  gutterBottom
+                  sx={{ display: "block" }}
+                >
+                  <h2>Work & Financial</h2>
+                </Typography>
+                <Stack spacing={1}>
+                  <span>Company: {data.company.name}</span>
+                  <span>Title: {data.company.title}</span>
+                  <span>Department: {data.company.department}</span>
+                  <span>
+                    Work Location:{" "}
+                    {`${data.company.address.address}, ${data.company.address.city}`}
+                  </span>
 
-          <Grid size={6}>
-            <section>
-              <Typography
-                variant="overline"
-                gutterBottom
-                sx={{ display: "block" }}
-              >
-                <h2>Personal Details</h2>
-              </Typography>
-              <Stack spacing={1}>
-                <span>Blood Group: {data.bloodGroup}</span>
-                <span>Eye Color: {data.eyeColor}</span>
-                <span>Hair: {`${data.hair.type} ${data.hair.color}`}</span>
-                <span>Height: {data.height} cm</span>
-                <span>Weight: {data.weight} kg</span>
-                <span>SSN: {mask(data.ssn)}</span>
-                <span>EIN: {mask(data.ein)}</span>
-                <span>University: {data.university}</span>
-              </Stack>
-            </section>
-          </Grid>
-          <Grid size={6}>
-            <section>
-              <Typography
-                variant="overline"
-                gutterBottom
-                sx={{ display: "block" }}
-              >
-                <h2>Work & Financial</h2>
-              </Typography>
-              <Stack spacing={1}>
-                <span>Company: {data.company.name}</span>
-                <span>Title: {data.company.title}</span>
-                <span>Department: {data.company.department}</span>
-                <span>
-                  Work Location:{" "}
-                  {`${data.company.address.address}, ${data.company.address.city}`}
-                </span>
-
-                <span>
-                  Bank: {data.bank.cardType} - {mask(data.bank.cardNumber)}
-                </span>
-                <span>IBAN: {mask(data.bank.iban)}</span>
-                <span>
-                  Crypto: {data.crypto.coin} ({data.crypto.network})
-                </span>
-                <span>Wallet: {mask(data.crypto.wallet)}</span>
-              </Stack>
-            </section>
+                  <span>
+                    Bank: {data.bank.cardType} - {mask(data.bank.cardNumber)}
+                  </span>
+                  <span>IBAN: {mask(data.bank.iban)}</span>
+                  <span>
+                    Crypto: {data.crypto.coin} ({data.crypto.network})
+                  </span>
+                  <span>Wallet: {mask(data.crypto.wallet)}</span>
+                </Stack>
+              </section>
+            </Grid>
           </Grid>
         </Grid>
       ) : (
