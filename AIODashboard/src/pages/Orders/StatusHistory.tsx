@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack, Typography } from "@mui/material";
+import { Divider, Grid, Stack, Box } from "@mui/material";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -12,6 +12,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
 
 import type { StatusHistory } from "../../types/Orders";
+import { Fragment } from "react/jsx-runtime";
 
 interface StatusHistoryProps {
   statusHistory: StatusHistory[];
@@ -28,9 +29,9 @@ export default function StatusHistory({ statusHistory }: StatusHistoryProps) {
       >
         <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
           {statusHistory.map((history, index) => (
-            <>
+            <Fragment key={index}>
               {index > 0 && <Divider orientation="vertical" flexItem />}
-              <ListItem key={index}>
+              <ListItem>
                 <ListItemAvatar>
                   <Avatar>
                     {/* <ImageIcon /> */}
@@ -44,7 +45,7 @@ export default function StatusHistory({ statusHistory }: StatusHistoryProps) {
                   secondary={new Date(history.timestamp).toLocaleString()}
                 />
               </ListItem>
-            </>
+            </Fragment>
           ))}
         </Stack>
       </List>
