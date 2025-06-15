@@ -30,3 +30,5 @@ https://dummyjson.com/  (has images)
 // Refactore items like div,etc to use Material UI items like Box (if applicable)
 
 // Setup more Error handling: Errorboundary, etc
+
+// Fallbacks for missing or null or undefined response values

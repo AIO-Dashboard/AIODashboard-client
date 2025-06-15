@@ -22,7 +22,7 @@ export default function StatusHistory({ statusHistory }: StatusHistoryProps) {
   return (
     <Grid size={{ xs: 12 }} sx={{ paddingRight: { xs: "10px", md: "30px" } }}>
       <Typography variant="overline" gutterBottom>
-        Status History
+        <h2>Status History</h2>
       </Typography>
       <List
         sx={{

@@ -12,13 +12,14 @@ import { Fragment } from "react/jsx-runtime";
 
 interface OrderedItemsProps {
   items: OrderItem[];
+  currency: string;
 }
 
-export default function OrderedItems({ items }: OrderedItemsProps) {
+export default function OrderedItems({ items, currency }: OrderedItemsProps) {
   return (
     <Grid size={{ xs: 12 }} sx={{ paddingRight: { xs: "10px", md: "30px" } }}>
       <Typography variant="overline" gutterBottom>
-        Items
+        <h2>Items</h2>
       </Typography>
       <List
         sx={{
@@ -29,7 +30,7 @@ export default function OrderedItems({ items }: OrderedItemsProps) {
         <Stack direction={{ xs: "column" }} spacing={1}>
           {items.map((item, index) => (
             <Fragment key={index}>
-              {index > 0 && <Divider orientation="vertical" flexItem />}
+              {index > 0 && <Divider orientation="horizontal" flexItem />}
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
@@ -53,16 +54,22 @@ export default function OrderedItems({ items }: OrderedItemsProps) {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText
-                  primary={item.title}
-                  secondary={`SKU: ${item.sku} | Category: ${
-                    item.category
-                  } | Quantity: ${
-                    item.quantity
-                  } | Unit Price: ${item.unitPrice.toFixed(
-                    2
-                  )} | Total Price: ${item.totalPrice.toFixed(2)}`}
-                />
+                <Stack>
+                  <ListItemText
+                    primary={item.title}
+                    secondary={`SKU: ${item.sku} | Category: ${item.category}`}
+                  />
+                  <ListItemText
+                    secondary={`Quantity: ${
+                      item.quantity
+                    } | Unit Price: ${item.unitPrice.toFixed(
+                      2
+                    )}${currency} | Total Price: ${item.totalPrice.toFixed(
+                      2
+                    )}${currency}`}
+                    sx={{ marginTop: "-5px" }}
+                  />
+                </Stack>
               </ListItem>
             </Fragment>
           ))}

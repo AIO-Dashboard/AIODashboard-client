@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid, Link, Stack, Typography } from "@mui/material";
 import { useOrderDetail } from "../../hooks/useOrders";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
@@ -42,9 +42,12 @@ export default function OrderDetail() {
       }}
     >
       <Grid size={{ xs: 12 }}>
-        <h1>Order Summary</h1>
+        <h1 style={{ marginBottom: 0 }}>Order Details</h1>
+        <Typography variant="caption" gutterBottom>
+          ({data.orderNumber})
+        </Typography>
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 6 }}>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <Stack direction="column" spacing={1}>
           <Typography variant="caption" gutterBottom>
             Total Amount: {data.totalAmount.toFixed(2)} {data.currency}
@@ -62,12 +65,9 @@ export default function OrderDetail() {
           <Typography variant="caption" gutterBottom>
             Order Date: {new Date(data.createdAt).toLocaleString()}
           </Typography>
-          <Typography variant="caption" gutterBottom>
-            Order Number: {data.orderNumber}
-          </Typography>
         </Stack>
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 6 }}>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <Stack direction="column" spacing={1}>
           <Typography variant="caption" gutterBottom>
             Status: {data.status}
@@ -79,7 +79,8 @@ export default function OrderDetail() {
             Carrier: {data.carrier}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Estimated Delivery: {data.estimatedDelivery}
+            Estimated Delivery:{" "}
+            {new Date(data.estimatedDelivery).toLocaleString()}
           </Typography>
           <Typography variant="caption" gutterBottom>
             Delivered At: {data.deliveredAt}
@@ -88,7 +89,82 @@ export default function OrderDetail() {
       </Grid>
       <Grid size={{ xs: 12 }}>
         <StatusHistory statusHistory={data.statusHistory} />
-        <OrderedItems items={data.items} />
+        <OrderedItems items={data.items} currency={data.currency} />
+      </Grid>
+      <Grid size={{ xs: 12 }}>
+        <Typography variant="overline" gutterBottom>
+          <h2>Shipping & Billing</h2>
+        </Typography>
+        <Grid size={{ xs: 12 }} container spacing={2}>
+          <Grid size={{ xs: 12, sm: 6, md: 6 }}>
+            <Stack direction="column" spacing={1}>
+              <Typography variant="overline" gutterBottom>
+                Shipping
+              </Typography>
+              {/* Christopher West 1656 Eighth Street Denver, PA 63011 United States
+              Phone: +49 968-571-2475 */}
+              {/* customer.name shpiingAddress.address .city, .stateCode .postalCode .country 
+              customer.phone */}
+              <Typography variant="caption" gutterBottom>
+                {data.customer.name}
+              </Typography>
+              <Typography variant="caption" gutterBottom>
+                {`${data.shippingAddress.address},
+                ${data.shippingAddress.city}, ${data.shippingAddress.stateCode}
+                ${data.shippingAddress.postalCode} ${data.shippingAddress.country}`}
+              </Typography>
+              <Typography variant="caption" gutterBottom>
+                {data.customer.phone}
+              </Typography>
+            </Stack>
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 6 }}>
+            <Stack direction="column" spacing={1}>
+              <Typography variant="overline" gutterBottom>
+                Billing
+              </Typography>
+              {data.shippingAddress.address !== data.billingAddress.address ? (
+                <>
+                  {" "}
+                  <Typography variant="caption" gutterBottom>
+                    {data.customer.name}
+                  </Typography>
+                  <Typography variant="caption" gutterBottom>
+                    {`${data.shippingAddress.address},
+                ${data.shippingAddress.city}, ${data.shippingAddress.stateCode}
+                ${data.shippingAddress.postalCode} ${data.shippingAddress.country}`}
+                  </Typography>
+                  <Typography variant="caption" gutterBottom>
+                    {data.customer.phone}
+                  </Typography>
+                </>
+              ) : (
+                <Typography variant="caption" gutterBottom>
+                  Same as Shipping Address
+                </Typography>
+              )}
+            </Stack>
+          </Grid>
+        </Grid>
+        <Grid size={{ xs: 12 }}>
+          <Stack direction={"column"}>
+            <Typography variant="overline" gutterBottom>
+              <h2>Customer Info</h2>
+            </Typography>
+            <Typography variant="caption" gutterBottom>
+              {data.customer.name} ({data.customer.role})
+            </Typography>
+            <Typography variant="caption" gutterBottom>
+              <Link href={`mailto:${data.customer.email}`}>
+                {data.customer.email}
+              </Link>
+            </Typography>
+            <Typography variant="caption" gutterBottom>
+              {data.customer.phone}
+            </Typography>
+          </Stack>
+        </Grid>
       </Grid>
     </Grid>
   );
