@@ -68,18 +68,18 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Name",
   },
-  {
-    id: "email",
-    numeric: false,
-    disablePadding: false,
-    label: "Email",
-  },
-  {
-    id: "phone",
-    numeric: false,
-    disablePadding: false,
-    label: "Phone",
-  },
+  // {
+  //   id: "email",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Email",
+  // },
+  // {
+  //   id: "phone",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Phone",
+  // },
   {
     id: "username",
     numeric: false,
@@ -99,12 +99,12 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Address",
   },
-  {
-    id: "company",
-    numeric: false,
-    disablePadding: false,
-    label: "Company",
-  },
+  // {
+  //   id: "company",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Company",
+  // },
   {
     id: "role",
     numeric: false,
@@ -365,15 +365,15 @@ export default function EnhancedTable(props: UserResponse) {
                     <TableCell align="left">
                       {row.firstName + " " + row.lastName}
                     </TableCell>
-                    <TableCell align="left">{row.email}</TableCell>
-                    <TableCell align="left">{row.phone}</TableCell>
+                    {/* <TableCell align="left">{row.email}</TableCell> */}
+                    {/* <TableCell align="left">{row.phone}</TableCell> */}
                     <TableCell align="left">{row.username}</TableCell>
                     <TableCell align="left">{row.age}</TableCell>
                     <TableCell align="left">
                       {row.address.city + " " + row.address.state}
                     </TableCell>
 
-                    <TableCell align="left">{row.company.name}</TableCell>
+                    {/* <TableCell align="left">{row.company.name}</TableCell> */}
                     <TableCell align="left">{row.company.title}</TableCell>
 
                     <TableCell

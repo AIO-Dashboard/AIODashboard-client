@@ -81,6 +81,9 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <br />
+        <br />
+        <br />
       </Container>
       {/* </div> */}
       <footer>@AIO Dashboard 2025</footer>
