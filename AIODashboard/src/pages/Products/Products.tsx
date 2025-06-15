@@ -1,23 +1,24 @@
 import { useProducts } from "../../hooks/useProducts";
 
-import { CircularProgress, Box } from "@mui/material";
+import { Box } from "@mui/material";
+
 import ProductsTable from "./ProductsTable";
+
+import Spinner from "../../components/Spinner";
 
 export default function Products() {
   const { data, isLoading, isError } = useProducts();
 
   console.log("Products:", data && data);
   return (
-    <div>
-      <h1>Products list</h1>
+    <Box>
+      <h1>Product list</h1>
       {isLoading ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
+        <Spinner text={"LOADING TABLE"} />
       ) : (
         <>{data && <ProductsTable {...data} />}</>
       )}
       {isError ? <>Error</> : ""}
-    </div>
+    </Box>
   );
 }

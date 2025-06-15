@@ -1,5 +1,7 @@
+import type { Order } from "./EnhancedTable";
+
 // TYPES FOR RESPONSE DATA -----------------------------
-export interface ProductResponse {
+export interface ProductsResponse {
   products: Product[];
   total: number;
   skip: number;
@@ -50,6 +52,7 @@ export interface Review {
 export interface TableProduct {
   id: number;
   brand: string;
+  stock: number;
   price: number;
   description: string;
   title: string;
@@ -73,9 +76,3 @@ export interface EnhancedTableProps {
   orderBy: string;
   rowCount: number;
 }
-export interface EnhancedTableToolbarProps {
-  numSelected: number;
-  totalItemCount: number;
-  visibleItemCount: number;
-}
-export type Order = "asc" | "desc";

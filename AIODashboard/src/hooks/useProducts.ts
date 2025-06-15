@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ProductResponse, Product } from "../types/Products";
+import type { ProductsResponse, Product } from "../types/Products";
 
 export const useProducts = () => {
-  return useQuery<ProductResponse>({
+  return useQuery<ProductsResponse>({
     queryKey: ["products"], // for caching, unique ID
     queryFn: async () => {
       try {
@@ -11,7 +11,7 @@ export const useProducts = () => {
         return res.json();
       } catch (err) {
         console.log("err:", err);
-        throw err;
+        throw new Error(`Failed to fetch products`);
       }
     },
   });
@@ -26,9 +26,9 @@ export const useProductDetail = (id: string) => {
         return res.json();
       } catch (err) {
         console.log("err:", err);
-        throw err;
+        throw new Error(`Failed to fetch product '${id}'`);
       }
     },
-    enabled: !!id, // ✅ Prevent fetch if id is empty
+    enabled: !!id, //  Prevents fetch if id is empty
   });
 };

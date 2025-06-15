@@ -21,12 +21,12 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import InfoIcon from "@mui/icons-material/Info";
 
-import type { ProductsResponse } from "../../types/Products.ts";
+import type { UserResponse } from "../../types/Customers.ts";
 import type {
-  TableProduct,
+  TableUser,
   HeadCell,
   EnhancedTableProps,
-} from "../../types/Products.ts";
+} from "../../types/Customers.ts";
 import type {
   EnhancedTableToolbarProps,
   Order,
@@ -56,48 +56,60 @@ function getComparator<Key extends keyof any>(
 }
 
 const headCells: readonly HeadCell[] = [
-  // add stock no.
   {
     id: "id",
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: "ID",
   },
   {
-    id: "title",
+    id: "name",
     numeric: false,
     disablePadding: false,
-    label: "Title",
+    label: "Name",
+  },
+  // {
+  //   id: "email",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Email",
+  // },
+  // {
+  //   id: "phone",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Phone",
+  // },
+  {
+    id: "username",
+    numeric: false,
+    disablePadding: false,
+    label: "Username",
+  },
+
+  {
+    id: "age",
+    numeric: false,
+    disablePadding: false,
+    label: "Age",
   },
   {
-    id: "price",
+    id: "address",
     numeric: false,
     disablePadding: false,
-    label: "Price",
+    label: "Address",
   },
+  // {
+  //   id: "company",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Company",
+  // },
   {
-    id: "brand",
+    id: "role",
     numeric: false,
     disablePadding: false,
-    label: "Brand",
-  },
-  {
-    id: "stock",
-    numeric: false,
-    disablePadding: false,
-    label: "Stock",
-  },
-  {
-    id: "description",
-    numeric: false,
-    disablePadding: false,
-    label: "Description",
-  },
-  {
-    id: "rating",
-    numeric: false,
-    disablePadding: false,
-    label: "Rating",
+    label: "Role",
   },
   {
     id: "action",
@@ -117,7 +129,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props;
   const createSortHandler =
-    (property: keyof TableProduct) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof TableUser) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -216,11 +228,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function EnhancedTable(props: ProductsResponse) {
+export default function EnhancedTable(props: UserResponse) {
   const navigate = useNavigate();
-  const rows = props.products;
+  const rows = props.users;
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("id");
+  const [orderBy, setOrderBy] = React.useState<keyof TableUser>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
 
@@ -228,7 +240,7 @@ export default function EnhancedTable(props: ProductsResponse) {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof TableProduct
+    property: keyof TableUser
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -289,8 +301,8 @@ export default function EnhancedTable(props: ProductsResponse) {
     [order, orderBy, page, rowsPerPage]
   );
 
-  const handleProductInfoClick = (id: number) => {
-    navigate(`/products/${id}`);
+  const handleUserInfoClick = (id: number) => {
+    navigate(`/customers/${id}`);
   };
 
   return (
@@ -344,25 +356,32 @@ export default function EnhancedTable(props: ProductsResponse) {
                       component="th"
                       id={labelId}
                       scope="row"
-                      // padding="none"
+                      padding="none"
                       align="left"
                     >
                       {row.id}
                     </TableCell>
-                    <TableCell align="left">{row.title}</TableCell>
-                    <TableCell align="left">{row.price}</TableCell>
-                    <TableCell align="left">{row.brand}</TableCell>
-                    <TableCell align="left">{row.stock}</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">{row.rating}</TableCell>
+
+                    <TableCell align="left">
+                      {row.firstName + " " + row.lastName}
+                    </TableCell>
+                    {/* <TableCell align="left">{row.email}</TableCell> */}
+                    {/* <TableCell align="left">{row.phone}</TableCell> */}
+                    <TableCell align="left">{row.username}</TableCell>
+                    <TableCell align="left">{row.age}</TableCell>
+                    <TableCell align="left">
+                      {row.address.city + " " + row.address.state}
+                    </TableCell>
+
+                    {/* <TableCell align="left">{row.company.name}</TableCell> */}
+                    <TableCell align="left">{row.company.title}</TableCell>
+
                     <TableCell
                       align="right"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <Tooltip title="Product Detail">
-                        <IconButton
-                          onClick={() => handleProductInfoClick(row.id)}
-                        >
+                      <Tooltip title="User Detail">
+                        <IconButton onClick={() => handleUserInfoClick(row.id)}>
                           <InfoIcon />
                         </IconButton>
                       </Tooltip>

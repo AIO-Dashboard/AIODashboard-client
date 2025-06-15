@@ -20,6 +20,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 
 import type { Review } from "../../types/Products";
+import Spinner from "../../components/Spinner";
 
 export default function ProductDetail() {
   const { id } = useParams(); // take id from url
@@ -34,8 +35,16 @@ export default function ProductDetail() {
       {/* <Box sx={{ width: "100%" }}> */}
       {/* <Paper sx={{ width: "100%", mb: 2 }}> */}
       {data ? (
-        <Grid container spacing={2}>
-          <Grid size={6}>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            marginLeft: {
+              xs: "5vw",
+            },
+          }}
+        >
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Box
               component="img"
               src={data.images[0] || "/react.svg"}
@@ -56,7 +65,7 @@ export default function ProductDetail() {
             />
           </Grid>
 
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Stack direction="column" spacing={1}>
               <h1>{data.title}</h1>
 
@@ -95,7 +104,7 @@ export default function ProductDetail() {
                   gutterBottom
                   sx={{ display: "block" }}
                 >
-                  Weight: {data.weight}
+                  Weight: {data.weight}g
                 </Typography>
                 <Typography
                   variant="caption"
@@ -132,7 +141,7 @@ export default function ProductDetail() {
               </Typography>
             </Stack>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Stack direction="row" spacing={1}>
               <Box
                 component="img"
@@ -177,7 +186,7 @@ export default function ProductDetail() {
               </Stack>
             </Stack>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               gutterBottom
@@ -204,7 +213,7 @@ export default function ProductDetail() {
                 }}
               >
                 {data.reviews.map((review: Review) => (
-                  <>
+                  <span key={review.date + review.reviewerName}>
                     <ListItem alignItems="flex-start">
                       <Tooltip
                         title={
@@ -241,17 +250,15 @@ export default function ProductDetail() {
                       />
                     </ListItem>
                     <Divider variant="inset" component="li" />
-                  </>
+                  </span>
                 ))}
               </List>
             </section>
           </Grid>
         </Grid>
       ) : (
-        "loading..."
+        <Spinner text={"LOADING PRODUCT INFO"} />
       )}
-      {/* </Paper> */}
-      {/* </Box> */}
     </>
   );
 }

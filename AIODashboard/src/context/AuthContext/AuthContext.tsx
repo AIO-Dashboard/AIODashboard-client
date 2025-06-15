@@ -16,9 +16,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = () => {
     setIsLoggedIn(true);
-    sessionStorage.setItem("isLoggedIn", true);
+    sessionStorage.setItem("isLoggedIn", "true");
   };
-  const logout = () => setIsLoggedIn(false);
+  const logout = () => {
+    setIsLoggedIn(false);
+    sessionStorage.removeItem("isLoggedIn");
+  };
 
   useEffect(() => {
     console.log("isLoggedIn:", isLoggedIn);
