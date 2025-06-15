@@ -3,4 +3,4 @@ export interface EnhancedTableToolbarProps {
   totalItemCount: number;
   visibleItemCount: number;
 }
-export type Order = "asc" | "desc";
+export type Sort = "asc" | "desc";

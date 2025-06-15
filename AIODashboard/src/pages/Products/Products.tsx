@@ -12,7 +12,7 @@ export default function Products() {
   console.log("Products:", data && data);
   return (
     <Box>
-      <h1>Product list</h1>
+      <h1>Products</h1>
       {isLoading ? (
         <Spinner text={"LOADING TABLE"} />
       ) : (

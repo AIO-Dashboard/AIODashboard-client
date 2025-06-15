@@ -5,7 +5,7 @@ export const useOrders = () =>
   useQuery<OrdersResponse>({
     queryKey: ["orders"],
     queryFn: async () => {
-      const res = await fetch("https://dummyjson.com/orders?limit=30");
+      const res = await fetch("/generated_orders_response.json");
       if (!res.ok) throw new Error("Failed to fetch orders");
       return res.json();
     },
