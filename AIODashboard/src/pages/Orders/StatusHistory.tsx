@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack, Box } from "@mui/material";
+import { Divider, Grid, Stack, Box, Typography } from "@mui/material";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,6 +21,9 @@ interface StatusHistoryProps {
 export default function StatusHistory({ statusHistory }: StatusHistoryProps) {
   return (
     <Grid size={{ xs: 12 }} sx={{ paddingRight: { xs: "10px", md: "30px" } }}>
+      <Typography variant="overline" gutterBottom>
+        Status History
+      </Typography>
       <List
         sx={{
           width: "100%",

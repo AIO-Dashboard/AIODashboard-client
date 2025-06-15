@@ -3,6 +3,8 @@ import { useOrderDetail } from "../../hooks/useOrders";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import StatusHistory from "./StatusHistory";
+import OrderedItems from "./OrderedItems";
+
 export default function OrderDetail() {
   const { id } = useParams();
   const { data, isLoading, isError } = useOrderDetail(id ? id : "");
@@ -85,10 +87,8 @@ export default function OrderDetail() {
         </Stack>
       </Grid>
       <Grid size={{ xs: 12 }}>
-        <Typography variant="overline" gutterBottom>
-          Status History
-        </Typography>
         <StatusHistory statusHistory={data.statusHistory} />
+        <OrderedItems items={data.items} />
       </Grid>
     </Grid>
   );
