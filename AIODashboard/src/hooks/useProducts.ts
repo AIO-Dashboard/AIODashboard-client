@@ -11,7 +11,7 @@ export const useProducts = () => {
         return res.json();
       } catch (err) {
         console.log("err:", err);
-        throw err;
+        throw new Error(`Failed to fetch products`);
       }
     },
   });
@@ -26,7 +26,7 @@ export const useProductDetail = (id: string) => {
         return res.json();
       } catch (err) {
         console.log("err:", err);
-        throw err;
+        throw new Error(`Failed to fetch product '${id}'`);
       }
     },
     enabled: !!id, //  Prevents fetch if id is empty

@@ -4,13 +4,9 @@ import { useCustomerDetail } from "../../hooks/useCustomers";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
-import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Spinner from "../../components/Spinner";
 
-// import type { Review } from "../../types/Customers";
+import Spinner from "../../components/Spinner";
 
 export default function CustomerDetail() {
   const { id } = useParams(); // take id from url

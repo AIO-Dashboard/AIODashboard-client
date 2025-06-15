@@ -1,0 +1,172 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "orderNumber": "ORD-1001",
+      "createdAt": "2025-06-12T09:15:23.123Z",
+      "updatedAt": "2025-06-14T10:12:45.000Z",
+      "status": "Delivered",
+      "statusHistory": [
+        { "status": "Processing", "timestamp": "2025-06-12T09:15:23.123Z" },
+        { "status": "Shipped", "timestamp": "2025-06-13T08:00:00.000Z" },
+        { "status": "Delivered", "timestamp": "2025-06-14T10:12:45.000Z" }
+      ],
+      "customer": {
+        "id": 17,
+        "name": "Sophia Martinez",
+        "email": "sophia.martinez@x.dummyjson.com",
+        "address": {
+          "address": "1234 Oak Avenue",
+          "city": "Dallas",
+          "state": "Texas",
+          "stateCode": "TX",
+          "postalCode": "75201",
+          "coordinates": { "lat": 32.7767, "lng": -96.797 },
+          "country": "United States"
+        },
+        "phone": "+1 214-555-0198",
+        "role": "user"
+      },
+      "shippingAddress": {
+        "address": "1234 Oak Avenue",
+        "city": "Dallas",
+        "state": "Texas",
+        "stateCode": "TX",
+        "postalCode": "75201",
+        "coordinates": { "lat": 32.7767, "lng": -96.797 },
+        "country": "United States"
+      },
+      "billingAddress": {
+        "address": "1234 Oak Avenue",
+        "city": "Dallas",
+        "state": "Texas",
+        "stateCode": "TX",
+        "postalCode": "75201",
+        "coordinates": { "lat": 32.7767, "lng": -96.797 },
+        "country": "United States"
+      },
+      "items": [
+        {
+          "productId": 1,
+          "sku": "BEAUTY-001",
+          "title": "Essence Mascara Lash Princess",
+          "category": "Beauty",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
+          "quantity": 2,
+          "unitPrice": 9.27,
+          "totalPrice": 18.54,
+          "returnEligible": true,
+          "reviewed": false
+        },
+        {
+          "productId": 16,
+          "sku": "GROC-016",
+          "title": "Apple",
+          "category": "Groceries",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/groceries/apple/thumbnail.webp",
+          "quantity": 5,
+          "unitPrice": 0.99,
+          "totalPrice": 4.95,
+          "returnEligible": false,
+          "reviewed": true
+        }
+      ],
+      "totalAmount": 23.49,
+      "taxAmount": 1.88,
+      "shippingCost": 4.99,
+      "discounts": [
+        { "code": "WELCOME10", "amount": 2.0, "type": "percentage" }
+      ],
+      "paymentMethod": "Credit Card",
+      "paymentStatus": "Paid",
+      "transactionId": "TXN-987654321",
+      "currency": "USD",
+      "carrier": "FedEx",
+      "trackingNumber": "EXP123456789US",
+      "estimatedDelivery": "2025-06-14T12:00:00.000Z",
+      "deliveredAt": "2025-06-14T10:12:45.000Z",
+      "gift": true,
+      "giftMessage": "Happy Birthday!",
+      "riskScore": 0.02,
+      "manualReview": false,
+      "notes": "Leave at the front door if not home.",
+      "attachments": ["https://cdn.dummyjson.com/invoices/ORD-1001.pdf"]
+    },
+    {
+      "id": 2,
+      "orderNumber": "ORD-1002",
+      "createdAt": "2025-06-13T11:22:10.456Z",
+      "updatedAt": "2025-06-15T09:30:00.000Z",
+      "status": "Shipped",
+      "statusHistory": [
+        { "status": "Processing", "timestamp": "2025-06-13T11:22:10.456Z" },
+        { "status": "Shipped", "timestamp": "2025-06-15T09:30:00.000Z" }
+      ],
+      "customer": {
+        "id": 23,
+        "name": "Liam Chen",
+        "email": "liam.chen@x.dummyjson.com",
+        "address": {
+          "address": "5678 Maple Lane",
+          "city": "San Francisco",
+          "state": "California",
+          "stateCode": "CA",
+          "postalCode": "94102",
+          "coordinates": { "lat": 37.7749, "lng": -122.4194 },
+          "country": "United States"
+        },
+        "phone": "+1 415-555-0123",
+        "role": "user"
+      },
+      "shippingAddress": {
+        "address": "5678 Maple Lane",
+        "city": "San Francisco",
+        "state": "California",
+        "stateCode": "CA",
+        "postalCode": "94102",
+        "coordinates": { "lat": 37.7749, "lng": -122.4194 },
+        "country": "United States"
+      },
+      "billingAddress": {
+        "address": "5678 Maple Lane",
+        "city": "San Francisco",
+        "state": "California",
+        "stateCode": "CA",
+        "postalCode": "94102",
+        "coordinates": { "lat": 37.7749, "lng": -122.4194 },
+        "country": "United States"
+      },
+      "items": [
+        {
+          "productId": 8,
+          "sku": "ELEC-008",
+          "title": "Bluetooth Headphones",
+          "category": "Electronics",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/electronics/bluetooth-headphones/thumbnail.webp",
+          "quantity": 1,
+          "unitPrice": 49.99,
+          "totalPrice": 49.99,
+          "returnEligible": true,
+          "reviewed": false
+        }
+      ],
+      "totalAmount": 49.99,
+      "taxAmount": 4.12,
+      "shippingCost": 7.99,
+      "discounts": [],
+      "paymentMethod": "PayPal",
+      "paymentStatus": "Paid",
+      "transactionId": "TXN-987654322",
+      "currency": "USD",
+      "carrier": "UPS",
+      "trackingNumber": "UPS987654321US",
+      "estimatedDelivery": "2025-06-17T15:00:00.000Z",
+      "gift": false,
+      "riskScore": 0.01,
+      "manualReview": false,
+      "notes": "",
+      "attachments": ["https://cdn.dummyjson.com/invoices/ORD-1002.pdf"]
+    }
+    // ...298 more orders...
+  ]
+}
