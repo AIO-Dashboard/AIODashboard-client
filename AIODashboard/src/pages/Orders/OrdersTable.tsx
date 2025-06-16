@@ -20,14 +20,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import InfoIcon from "@mui/icons-material/Info";
-import StarIcon from "@mui/icons-material/Star";
 
-import type { ProductsResponse } from "../../types/Products.ts";
+import type { OrdersResponse } from "../../types/Orders.ts";
 import type {
-  TableProduct,
+  TableOrder,
   HeadCell,
   EnhancedTableProps,
-} from "../../types/Products.ts";
+} from "../../types/Orders.ts";
 import type {
   EnhancedTableToolbarProps,
   Sort,
@@ -55,9 +54,13 @@ function getComparator<Key extends keyof any>(
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
+//  <TableCell align="left">{row.customer.name}</TableCell>
+//                     <TableCell align="left">{row.status}</TableCell>
+//                     <TableCell align="left">{row.createdAt}</TableCell>
+//                     <TableCell align="left">{row.totalAmount}</TableCell>
+//                     <TableCell align="left">{row.paymentMethod}</TableCell>
+//                     <TableCell align="left">{row.carrier}</TableCell>
 const headCells: readonly HeadCell[] = [
-  // add stock no.
   {
     id: "id",
     numeric: false,
@@ -65,40 +68,46 @@ const headCells: readonly HeadCell[] = [
     label: "ID",
   },
   {
-    id: "title",
+    id: "orderNumber",
     numeric: false,
     disablePadding: false,
-    label: "Title",
+    label: "Order No.",
   },
   {
-    id: "price",
+    id: "customer",
     numeric: false,
     disablePadding: false,
-    label: "Price",
+    label: "Customer",
   },
   {
-    id: "brand",
+    id: "status",
     numeric: false,
     disablePadding: false,
-    label: "Brand",
+    label: "Status",
   },
   {
-    id: "stock",
+    id: "createdAt",
     numeric: false,
     disablePadding: false,
-    label: "Stock",
+    label: "Created At",
   },
   {
-    id: "description",
+    id: "totalAmount",
     numeric: false,
     disablePadding: false,
-    label: "Description",
+    label: "Total Amount",
   },
   {
-    id: "rating",
+    id: "paymentMethod",
     numeric: false,
     disablePadding: false,
-    label: "Rating",
+    label: "Payment Method",
+  },
+  {
+    id: "carrier",
+    numeric: false,
+    disablePadding: false,
+    label: "Carrier",
   },
   {
     id: "action",
@@ -118,7 +127,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props;
   const createSortHandler =
-    (property: keyof TableProduct) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof TableOrder) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -217,11 +226,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function EnhancedTable(props: ProductsResponse) {
+export default function EnhancedTable(props: OrdersResponse) {
   const navigate = useNavigate();
-  const rows = props.products;
+  const rows = props.orders;
   const [order, setOrder] = React.useState<Sort>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("id");
+  const [orderBy, setOrderBy] = React.useState<keyof TableOrder>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
 
@@ -229,7 +238,7 @@ export default function EnhancedTable(props: ProductsResponse) {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof TableProduct
+    property: keyof TableOrder
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -290,8 +299,8 @@ export default function EnhancedTable(props: ProductsResponse) {
     [order, orderBy, page, rowsPerPage]
   );
 
-  const handleProductInfoClick = (id: number) => {
-    navigate(`/products/${id}`);
+  const handleOrderInfoClick = (id: number) => {
+    navigate(`/orders/${id}`);
   };
 
   return (
@@ -350,31 +359,22 @@ export default function EnhancedTable(props: ProductsResponse) {
                     >
                       {row.id}
                     </TableCell>
-                    <TableCell align="left">{row.title}</TableCell>
-                    <TableCell align="left">${row.price}</TableCell>
-                    <TableCell align="left">{row.brand}</TableCell>
-                    <TableCell align="left">{row.stock} left</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
+                    <TableCell align="left">{row.orderNumber}</TableCell>
+                    <TableCell align="left">{row.customer.name}</TableCell>
+                    <TableCell align="left">{row.status}</TableCell>
+                    <TableCell align="left">{row.createdAt}</TableCell>
                     <TableCell align="left">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <StarIcon sx={{ color: "#faaf00" }} />
-                        {row.rating}
-                      </Box>
+                      ${row.totalAmount.toLocaleString()}
                     </TableCell>
+                    <TableCell align="left">{row.paymentMethod}</TableCell>
+                    <TableCell align="left">{row.carrier}</TableCell>
                     <TableCell
                       align="right"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <Tooltip title="Product Detail">
+                      <Tooltip title="Order Detail">
                         <IconButton
-                          onClick={() => handleProductInfoClick(row.id)}
+                          onClick={() => handleOrderInfoClick(row.id)}
                         >
                           <InfoIcon />
                         </IconButton>

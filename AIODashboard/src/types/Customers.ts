@@ -1,4 +1,4 @@
-import type { Order } from "./EnhancedTable";
+import type { Sort } from "./EnhancedTable";
 
 // TYPES FOR RESPONSE DATA -----------------------------
 export interface UserResponse {
@@ -101,7 +101,7 @@ export interface EnhancedTableProps {
     property: keyof TableUser
   ) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
+  order: Sort;
   orderBy: string;
   rowCount: number;
 }
