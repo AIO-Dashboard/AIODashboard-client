@@ -79,56 +79,59 @@ function KPICards({
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "grid",
-        // gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
-        gridTemplateColumns: {
-          xs: "repeat(1, 1fr)", // 1 column for xs screens (<600px)
-          sm: "repeat(2, 1fr)", // 2 columns for sm (600px+)
-          lg: "repeat(4, 1fr)", // 4 columns for lg (1200px+)
-        },
-        gap: 2,
-      }}
-    >
-      {cards.map((card, index) => (
-        <Card key={card.id}>
-          <Tooltip title={card.explanation}>
-            <CardActionArea
-              onClick={() => setSelectedCard(index)}
-              data-active={selectedCard === index ? "" : undefined}
-              sx={{
-                height: "100%",
-                color: card.id === 1 ? "white" : "text.primary",
-                backgroundColor: setDynamicColor(
-                  card.id,
-                  card.value,
-                  card.color
-                ),
-                "&:hover": {
-                  backgroundColor: "action.selectedHover",
-                },
-              }}
-            >
-              <CardContent sx={{ height: "100%" }}>
-                <Typography variant="h5" component="div">
-                  {card.id !== 3
-                    ? card.value
-                    : (card.value * 100).toFixed(1) + "%"}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color={card.id === 1 ? "white" : "text.secondary"}
-                >
-                  {card.description}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Tooltip>
-        </Card>
-      ))}
-    </Box>
+    <>
+      <h2>Key Performace Indicators</h2>
+      <Box
+        sx={{
+          width: "100%",
+          display: "grid",
+          // gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
+          gridTemplateColumns: {
+            xs: "repeat(1, 1fr)", // 1 column for xs screens (<600px)
+            sm: "repeat(2, 1fr)", // 2 columns for sm (600px+)
+            lg: "repeat(4, 1fr)", // 4 columns for lg (1200px+)
+          },
+          gap: 2,
+        }}
+      >
+        {cards.map((card, index) => (
+          <Card key={card.id}>
+            <Tooltip title={card.explanation}>
+              <CardActionArea
+                onClick={() => setSelectedCard(index)}
+                data-active={selectedCard === index ? "" : undefined}
+                sx={{
+                  height: "100%",
+                  color: card.id === 1 ? "white" : "text.primary",
+                  backgroundColor: setDynamicColor(
+                    card.id,
+                    card.value,
+                    card.color
+                  ),
+                  "&:hover": {
+                    backgroundColor: "action.selectedHover",
+                  },
+                }}
+              >
+                <CardContent sx={{ height: "100%" }}>
+                  <Typography variant="h5" component="div">
+                    {card.id !== 3
+                      ? card.value
+                      : (card.value * 100).toFixed(1) + "%"}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color={card.id === 1 ? "white" : "text.secondary"}
+                  >
+                    {card.description}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Tooltip>
+          </Card>
+        ))}
+      </Box>
+    </>
   );
 }
 

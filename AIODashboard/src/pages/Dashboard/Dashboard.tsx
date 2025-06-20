@@ -20,6 +20,8 @@ import type { ProductsResponse } from "../../types/Products";
 
 import KPICards from "./KPICards";
 import SalesChart from "./SalesChart";
+import CategoriesPieChart from "./CategoriesPieChart";
+import CategoriesList from "./CategoriesList";
 
 export default function Dashboard() {
   // Accesses the context provided by the ProtectedRoute
@@ -99,34 +101,30 @@ export default function Dashboard() {
 
   // ----- DEV LOGGING -----
   console.log(
-    "%c📊 ============== DASHBOARD ANALYTICS ============== ",
+    "%c📊 ============== DASHBOARD ANALYTICS START ============== ",
     "color: #1976d2; font-weight: bold;"
   );
-  console.log("🧾 Total Revenue:", totalRevenue);
+  console.log("/🧾 Total Revenue:", totalRevenue);
   console.log("📦 Top Products:", topProducts);
-  console.log("📈 Sales Over Time:", salesOverTime);
+  console.log("/📈 Sales Over Time:", salesOverTime);
   console.log("👥 Top Customers:", topCustomers);
   console.log("📊 Category Distribution:", categoryDist);
-  console.log("💰 Average Order Value:", avgOrderValue.toFixed(2));
+  console.log("/💰 Average Order Value:", avgOrderValue.toFixed(2));
   console.log(
-    "🔁 Repeat Purchase Ratio:",
+    "/🔁 Repeat Purchase Ratio:",
     `${(repeatPurchaseRatio * 100).toFixed(1)}%`
   );
   console.log("⚠️ Low Stock Products:", lowStockProducts);
-
+  console.log(
+    "%c📊 ============== DASHBOARD ANALYTICS END============== ",
+    "color: #1976d2; font-weight: bold;"
+  );
   return (
     <>
       {/* <Grid container size={{ xs: 12 }}> */}
       <Grid size={{ xs: 12 }}>
         <h1>Dashboard</h1>
         {/* | [💰 Revenue] [🧾 AOV] [🔁 Loyalty] [⚠️ Low Stock#]  | <- KPI Cards (4 cols) */}
-        {/* <Grid container>
-          <Grid size={{ xs: 6, sm: 3 }}>Revenue</Grid>
-          <Grid size={{ xs: 6, sm: 3 }}>AOV</Grid>
-          <Grid size={{ xs: 6, sm: 3 }}>Loyalty</Grid>
-          <Grid size={{ xs: 6, sm: 3 }}>Low Stock</Grid>
-        </Grid> */}
-        {/* //TODO Tooltips */}
         <KPICards
           totalRevenue={totalRevenue.toFixed(2)}
           avgOrderValue={avgOrderValue.toFixed(2)}
@@ -136,6 +134,23 @@ export default function Dashboard() {
           // repeatPurchaseRatio={0.11}
         />
         <SalesChart salesOverTime={salesOverTime} />
+        {/* |         📊 Category Pie        |   🏆 Top Products |
+|                                |   👥 Top Customers| */}
+        <Grid container sx={{ paddingTop: 2 }}>
+          <Grid size={{ xs: 12 }}>
+            <h2>Category Distribution</h2>
+          </Grid>
+          <Grid size={{ xs: 12, sm: 12, md: 8 }}>
+            <CategoriesPieChart categoryDist={categoryDist} />
+          </Grid>
+          <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+            <CategoriesList categoryDist={categoryDist} />
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top prod</Grid>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top customer</Grid>
+        </Grid>
       </Grid>
       {/* <Grid size={{ xs: 6 }}> */}
     </>

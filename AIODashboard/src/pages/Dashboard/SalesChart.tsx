@@ -21,11 +21,11 @@ interface SalesChartProps {
 
 export default class SalesChart extends PureComponent<SalesChartProps> {
   componentDidMount() {
-    console.log(
-      "SalesChart data:",
-      this.props.salesOverTime
-      //   JSON.stringify(this.props.salesOverTime)
-    );
+    // console.log(
+    //   "SalesChart data:",
+    //   this.props.salesOverTime
+    //   //   JSON.stringify(this.props.salesOverTime)
+    // );
   }
 
   render() {
