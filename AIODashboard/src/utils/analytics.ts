@@ -112,13 +112,17 @@ export function getTopCustomers(
   orders: (Order & { customer: { id: number; name: string } })[],
   topN = 5
 ) {
-  const customerTotals: Record<number, { name: string; total: number }> = {};
+  const customerTotals: Record<
+    number,
+    { id: number; name: string; total: number }
+  > = {};
 
   for (const order of orders) {
     const { id, name } = order.customer;
     customerTotals[id] = {
       name,
       total: (customerTotals[id]?.total || 0) + order.totalAmount,
+      id: id,
     };
   }
 

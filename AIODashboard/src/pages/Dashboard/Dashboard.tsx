@@ -22,6 +22,7 @@ import KPICards from "./KPICards";
 import SalesChart from "./SalesChart";
 import CategoriesPieChart from "./CategoriesPieChart";
 import CategoriesList from "./CategoriesList";
+import TopItemsAccordion from "./TopItemsAccordion";
 
 export default function Dashboard() {
   // Accesses the context provided by the ProtectedRoute
@@ -147,10 +148,30 @@ export default function Dashboard() {
             <CategoriesList categoryDist={categoryDist} />
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top prod</Grid>
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top customer</Grid>
+
+        <Grid container sx={{ marginTop: "20px" }}>
+          <Grid
+            size={{ xs: 12, md: 6 }}
+            sx={{
+              display: { xs: "flex", md: "block" },
+              justifyContent: "center",
+              // margin: "10px",
+            }}
+          >
+            <TopItemsAccordion type="products" topItems={topProducts} />
+          </Grid>
+          <Grid
+            size={{ xs: 12, md: 6 }}
+            sx={{
+              display: { xs: "flex", md: "block" },
+              justifyContent: "center",
+              marginTop: { xs: "20px", md: "0" },
+            }}
+          >
+            <TopItemsAccordion type="customers" topItems={topCustomers} />
+          </Grid>
         </Grid>
+
         <Grid container>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <div id="lowStockProducts">Low stocks</div>
