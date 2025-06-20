@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import Tooltip from "@mui/material/Tooltip";
 
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+
 function KPICards({
   totalRevenue,
   avgOrderValue,
@@ -123,7 +125,22 @@ function KPICards({
                     variant="body2"
                     color={card.id === 1 ? "white" : "text.secondary"}
                   >
-                    {card.description}
+                    {card.id === 4 ? (
+                      <a
+                        href="#lowStockProducts"
+                        style={{
+                          color: "inherit",
+                          textDecoration: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "-4px",
+                        }}
+                      >
+                        {card.description} <ArrowOutwardIcon />
+                      </a>
+                    ) : (
+                      card.description
+                    )}
                   </Typography>
                 </CardContent>
               </CardActionArea>

@@ -108,7 +108,7 @@ export default function Dashboard() {
   console.log("📦 Top Products:", topProducts);
   console.log("/📈 Sales Over Time:", salesOverTime);
   console.log("👥 Top Customers:", topCustomers);
-  console.log("📊 Category Distribution:", categoryDist);
+  console.log("/📊 Category Distribution:", categoryDist);
   console.log("/💰 Average Order Value:", avgOrderValue.toFixed(2));
   console.log(
     "/🔁 Repeat Purchase Ratio:",
@@ -150,6 +150,11 @@ export default function Dashboard() {
         <Grid container>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top prod</Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>Top customer</Grid>
+        </Grid>
+        <Grid container>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <div id="lowStockProducts">Low stocks</div>
+          </Grid>
         </Grid>
       </Grid>
       {/* <Grid size={{ xs: 6 }}> */}
