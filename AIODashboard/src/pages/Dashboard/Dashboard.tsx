@@ -19,6 +19,7 @@ import type { OrdersResponse } from "../../types/Orders";
 import type { ProductsResponse } from "../../types/Products";
 
 import KPICards from "./KPICards";
+import SalesChart from "./SalesChart";
 
 export default function Dashboard() {
   // Accesses the context provided by the ProtectedRoute
@@ -134,6 +135,7 @@ export default function Dashboard() {
           repeatPurchaseRatio={repeatPurchaseRatio} // turns red-amber-green
           // repeatPurchaseRatio={0.11}
         />
+        <SalesChart salesOverTime={salesOverTime} />
       </Grid>
       {/* <Grid size={{ xs: 6 }}> */}
     </>

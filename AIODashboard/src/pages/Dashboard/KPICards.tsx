@@ -18,20 +18,20 @@ function KPICards({
   lowStockProducts: number;
 }) {
   const [selectedCard, setSelectedCard] = React.useState(0);
-  console.log(
-    "KPICards props:",
-    totalRevenue.toLocaleString(),
-    avgOrderValue,
-    repeatPurchaseRatio,
-    lowStockProducts
-  );
-  console.log(
-    "KPICards props 2:",
-    totalRevenue.toLocaleString(),
-    avgOrderValue,
-    (repeatPurchaseRatio * 100).toFixed(1) + "%",
-    lowStockProducts
-  );
+  //   console.log(
+  //     "KPICards props:",
+  //     totalRevenue.toLocaleString(),
+  //     avgOrderValue,
+  //     repeatPurchaseRatio,
+  //     lowStockProducts
+  //   );
+  //   console.log(
+  //     "KPICards props 2:",
+  //     totalRevenue.toLocaleString(),
+  //     avgOrderValue,
+  //     (repeatPurchaseRatio * 100).toFixed(1) + "%",
+  //     lowStockProducts
+  //   );
   const cards = [
     {
       id: 1,
@@ -66,7 +66,7 @@ function KPICards({
   ];
 
   const setDynamicColor = (id: number, value: any, color: string) => {
-    console.log("setDynamicColor called with:", id, value, color);
+    // console.log("setDynamicColor called with:", id, value, color);
     if (id === 4) {
       if (value <= 10) return "#81c784";
       if (value > 10 && value <= 25) return "#ffd54f";
