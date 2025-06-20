@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useCustomerDetail } from "../../hooks/useCustomers";
+import { useCustomerDetail } from "../../hooks/index";
 
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";

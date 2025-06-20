@@ -1,17 +1,23 @@
-import { useOrders } from "../../hooks/useOrders";
+// import { useOrders } from "../../hooks/index";
+import { useOutletContext } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import OrdersTable from "./OrdersTable";
 import Spinner from "../../components/Spinner";
+import type { OrdersResponse } from "../../types/Orders";
 
 export default function Orders() {
-  const { data, isLoading, isError } = useOrders();
+  // const { data, isLoading, isError } = useOrders();
+  const {
+    orders: data,
+    ordersisLoading: isLoading,
+    isError,
+  } = useOutletContext<{
+    orders: OrdersResponse;
+    ordersisLoading: boolean;
+    isError: boolean;
+  }>();
+
   console.log("Orders:", data && data);
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {
-  //   return <div>Error loading orders</div>;
-  // }
 
   if (isLoading) {
     return <Spinner text="Loading table..." />;

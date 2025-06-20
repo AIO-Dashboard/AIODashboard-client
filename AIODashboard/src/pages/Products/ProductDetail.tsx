@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router";
-import { useProductDetail } from "../../hooks/useProducts";
+import { useProductDetail } from "../../hooks/index";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
