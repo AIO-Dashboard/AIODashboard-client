@@ -125,11 +125,14 @@ export default function Dashboard() {
           <Grid size={{ xs: 6, sm: 3 }}>Loyalty</Grid>
           <Grid size={{ xs: 6, sm: 3 }}>Low Stock</Grid>
         </Grid> */}
+        {/* //TODO Tooltips */}
         <KPICards
           totalRevenue={totalRevenue.toFixed(2)}
           avgOrderValue={avgOrderValue.toFixed(2)}
-          lowStockProducts={lowStockProducts.length}
-          repeatPurchaseRatio={(repeatPurchaseRatio * 100).toFixed(1) + "%"}
+          lowStockProducts={lowStockProducts.length} // turns red-amber-green
+          // lowStockProducts={26}
+          repeatPurchaseRatio={repeatPurchaseRatio} // turns red-amber-green
+          // repeatPurchaseRatio={0.11}
         />
       </Grid>
       {/* <Grid size={{ xs: 6 }}> */}

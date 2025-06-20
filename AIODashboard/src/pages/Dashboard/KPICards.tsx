@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
+import Tooltip from "@mui/material/Tooltip";
 
 function KPICards({
   totalRevenue,
@@ -13,7 +14,7 @@ function KPICards({
 }: {
   totalRevenue: string;
   avgOrderValue: string;
-  repeatPurchaseRatio: string;
+  repeatPurchaseRatio: number;
   lowStockProducts: number;
 }) {
   const [selectedCard, setSelectedCard] = React.useState(0);
@@ -24,34 +25,58 @@ function KPICards({
     repeatPurchaseRatio,
     lowStockProducts
   );
+  console.log(
+    "KPICards props 2:",
+    totalRevenue.toLocaleString(),
+    avgOrderValue,
+    (repeatPurchaseRatio * 100).toFixed(1) + "%",
+    lowStockProducts
+  );
   const cards = [
     {
       id: 1,
-      title: "$ " + Number(totalRevenue).toLocaleString(),
+      value: "$ " + Number(totalRevenue).toLocaleString(),
       description: "Total Revenue",
       color: "#673ab7",
       //   "#64b5f6",
+      explanation: "Total revenue generated from all orders.",
     },
     {
       id: 2,
-      title: "$ " + Number(avgOrderValue).toLocaleString(),
+      value: "$ " + Number(avgOrderValue).toLocaleString(),
       description: "Average Order Value.",
       color: "#42a5f5",
       //   "#81c784",
+      explanation: "Average value of each order placed.",
     },
     {
       id: 3,
-      title: repeatPurchaseRatio,
+      value: repeatPurchaseRatio,
       description: "Repeat Purchase Ratio",
       color: "#ffd54f",
+      explanation: "Measures how many customers placed more than one order.",
     },
     {
       id: 4,
-      title: lowStockProducts,
+      value: lowStockProducts,
       description: "Low Stock Products",
       color: "#ffcdd2",
+      explanation: "Number of products with low stock levels.",
     },
   ];
+
+  const setDynamicColor = (id: number, value: any, color: string) => {
+    console.log("setDynamicColor called with:", id, value, color);
+    if (id === 4) {
+      if (value <= 10) return "#81c784";
+      if (value > 10 && value <= 25) return "#ffd54f";
+      if (value > 25) return "#ef5350";
+    } else if (id === 3) {
+      if (value <= 0.1) return "#ef5350"; // if less than/equal 10%
+      if (value > 0.1 && value <= 0.25) return "#ffd54f"; // if 11 - 25%
+      if (value > 0.25) return "#81c784"; // if 26% or more
+    } else return color;
+  };
 
   return (
     <Box
@@ -69,30 +94,38 @@ function KPICards({
     >
       {cards.map((card, index) => (
         <Card key={card.id}>
-          <CardActionArea
-            onClick={() => setSelectedCard(index)}
-            data-active={selectedCard === index ? "" : undefined}
-            sx={{
-              height: "100%",
-              color: card.id === 1 ? "white" : "text.primary",
-              backgroundColor: card.color,
-              "&:hover": {
-                backgroundColor: "action.selectedHover",
-              },
-            }}
-          >
-            <CardContent sx={{ height: "100%" }}>
-              <Typography variant="h5" component="div">
-                {card.title}
-              </Typography>
-              <Typography
-                variant="body2"
-                color={card.id === 1 ? "white" : "text.secondary"}
-              >
-                {card.description}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
+          <Tooltip title={card.explanation}>
+            <CardActionArea
+              onClick={() => setSelectedCard(index)}
+              data-active={selectedCard === index ? "" : undefined}
+              sx={{
+                height: "100%",
+                color: card.id === 1 ? "white" : "text.primary",
+                backgroundColor: setDynamicColor(
+                  card.id,
+                  card.value,
+                  card.color
+                ),
+                "&:hover": {
+                  backgroundColor: "action.selectedHover",
+                },
+              }}
+            >
+              <CardContent sx={{ height: "100%" }}>
+                <Typography variant="h5" component="div">
+                  {card.id !== 3
+                    ? card.value
+                    : (card.value * 100).toFixed(1) + "%"}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color={card.id === 1 ? "white" : "text.secondary"}
+                >
+                  {card.description}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Tooltip>
         </Card>
       ))}
     </Box>
