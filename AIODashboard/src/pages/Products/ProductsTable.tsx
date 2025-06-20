@@ -25,8 +25,8 @@ import StarIcon from "@mui/icons-material/Star";
 import type { ProductsResponse } from "../../types/Products.ts";
 import type {
   TableProduct,
-  HeadCell,
-  EnhancedTableProps,
+  ProductsHeadCell,
+  ProductsEnhancedTableProps,
 } from "../../types/Products.ts";
 import type {
   EnhancedTableToolbarProps,
@@ -56,7 +56,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells: readonly ProductsHeadCell[] = [
   // add stock no.
   {
     id: "id",
@@ -108,7 +108,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props: ProductsEnhancedTableProps) {
   const {
     onSelectAllClick,
     order,

@@ -59,13 +59,13 @@ export interface TableProduct {
   rating: number;
   action: any;
 }
-export interface HeadCell {
+export interface ProductsHeadCell {
   disablePadding: boolean;
   id: keyof TableProduct;
   label: string;
   numeric: boolean;
 }
-export interface EnhancedTableProps {
+export interface ProductsEnhancedTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,

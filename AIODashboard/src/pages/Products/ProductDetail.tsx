@@ -209,7 +209,15 @@ export default function ProductDetail() {
             }}
           >
             {data.reviews.map((review: Review) => (
-              <span key={review.date + review.reviewerName + data.title}>
+              <span
+                key={
+                  Math.random() * 1000 +
+                  Math.random() * 1000 +
+                  review.date +
+                  review.reviewerName +
+                  data.title
+                }
+              >
                 <ListItem alignItems="flex-start">
                   <Tooltip
                     title={review.reviewerName + "  |  " + review.reviewerEmail}

@@ -1,92 +1,58 @@
-type Order = {
-  id: number;
-  userId: number;
-  productId: number;
-  quantity: number;
-  date: string;
-};
+// getTotalRevenue
+// Calculates the total revenue from all orders.
+// - Loops through each order and sums up its `totalAmount`.
+// - Assumes each order already contains the computed total amount.
+// - Returns a number representing the total revenue.
+// ✅ Good for KPI display like "Total Revenue".
 
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  stock: number;
-  category: string;
-  rating?: { rate: number; count: number };
-};
+// getTopProducts
+// Returns the top N best-selling products by quantity sold.
+// - Scans all orders and counts how many units were sold per productId.
+// - Sorts the results in descending order by quantity sold.
+// - Matches each productId back to the product object in `products`.
+// - Returns an array of product objects with an added `sold` field.
+// ✅ Good for "Top Products" lists, bar charts, or leaderboards.
 
-type User = {
-  id: number;
-  name: string;
-  email?: string;
-  gender?: string;
-  address?: {
-    city: string;
-    country: string;
-  };
-};
+// getSalesOverTime
+// Groups total revenue per day.
+// - Extracts the date (YYYY-MM-DD) from each order’s `createdAt` field.
+// - Sums up `totalAmount` for each date.
+// - Returns an array sorted by date with `{ date, amount }` objects.
+// ✅ Good for line or bar charts showing daily sales trends.
 
-export function getTotalRevenue(orders: Order[], products: Product[]): number {
-  return orders.reduce((sum, order) => {
-    const product = products.find((p) => p.id === order.productId);
-    return product ? sum + product.price * order.quantity : sum;
-  }, 0);
-}
+// getTopCustomers
+// Finds the top N customers based on total spend.
+// - Loops through all orders and accumulates totalAmount per customer ID.
+// - Groups and sums by customer name (from `order.customer`).
+// - Returns a list of `{ name, total }` for the highest spenders.
+// ✅ Useful for customer insights or reward targeting.
 
-export function getAverageOrderValue(
-  orders: Order[],
-  products: Product[]
-): number {
-  if (!orders.length) return 0;
-  return getTotalRevenue(orders, products) / orders.length;
-}
+// getLowStockProducts
+// Filters products that are low in stock.
+// - Compares each product’s `stock` against a given `threshold` (default is 10).
+// - Returns an array of products where `stock < threshold`.
+// ✅ Ideal for inventory alerts or restock recommendations.
 
-export function getTopProducts(orders: Order[], products: Product[]) {
-  const productMap: Record<
-    number,
-    { title: string; revenue: number; quantity: number }
-  > = {};
+// getCategoryDistribution
+// Groups and counts products by their `category`.
+// - Loops through all products and tallies how many belong to each category.
+// - Returns an array of `{ category, count }` objects.
+// ✅ Use for pie or bar charts showing product category spread.
 
-  for (let order of orders) {
-    const product = products.find((p) => p.id === order.productId);
-    if (!product) continue;
+// getAverageOrderValue
+// Calculates the average amount spent per order.
+// - Uses `getTotalRevenue` divided by total number of orders.
+// - Returns 0 if there are no orders.
+// ✅ Important business metric (AOV - Average Order Value).
 
-    if (!productMap[product.id]) {
-      productMap[product.id] = {
-        title: product.title,
-        revenue: 0,
-        quantity: 0,
-      };
-    }
+// getRepeatCustomerRatio
+// Measures how many customers placed more than one order.
+// - Loops through all orders, counting how many times each customer ID appears.
+// - Computes the ratio of repeat customers to total unique customers.
+// - Returns a number between 0 and 1 (e.g. 0.4 means 40% of customers returned).
+// ✅ Useful for tracking loyalty and retention performance.
 
-    productMap[product.id].quantity += order.quantity;
-    productMap[product.id].revenue += order.quantity * product.price;
-  }
-
-  return Object.entries(productMap)
-    .map(([id, data]) => ({ id: Number(id), ...data }))
-    .sort((a, b) => b.revenue - a.revenue);
-}
-
-export function getSalesOverTime(orders: Order[], products: Product[]) {
-  const salesMap: Record<string, { date: string; revenue: number }> = {};
-
-  for (let order of orders) {
-    const product = products.find((p) => p.id === order.productId);
-    if (!product) continue;
-
-    const date = new Date(order.date).toISOString().split("T")[0];
-    if (!salesMap[date]) {
-      salesMap[date] = { date, revenue: 0 };
-    }
-
-    salesMap[date].revenue += product.price * order.quantity;
-  }
-
-  return Object.values(salesMap).sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-}
+import type { Order, Product } from "../types/index";
 
 export function getLowStockProducts(
   products: Product[],
@@ -95,69 +61,112 @@ export function getLowStockProducts(
   return products.filter((p) => p.stock < threshold);
 }
 
-export function getCategoryBreakdown(orders: Order[], products: Product[]) {
-  const map: Record<
-    string,
-    { category: string; revenue: number; quantity: number }
-  > = {};
+// types
+// type Product = { id: number; title: string; stock: number; price: number };
+// type OrderItem = { productId: number; quantity: number; unitPrice: number };
+// type Order = { items: OrderItem[]; totalAmount: number };
+// type User = { id: number; name: string };
 
-  for (const order of orders) {
-    const product = products.find((p) => p.id === order.productId);
-    if (!product) continue;
-
-    if (!map[product.category]) {
-      map[product.category] = {
-        category: product.category,
-        revenue: 0,
-        quantity: 0,
-      };
-    }
-
-    map[product.category].revenue += product.price * order.quantity;
-    map[product.category].quantity += order.quantity;
-  }
-
-  return Object.values(map).sort((a, b) => b.revenue - a.revenue);
+// 1. Total Revenue
+export function getTotalRevenue(orders: Order[]) {
+  return orders.reduce((sum, order) => sum + order.totalAmount, 0);
 }
 
+// 2. Top Products by Quantity Sold
+export function getTopProducts(orders: Order[], products: Product[], topN = 5) {
+  const productSales: Record<number, number> = {};
+
+  for (const order of orders) {
+    for (const item of order.items) {
+      productSales[item.productId] =
+        (productSales[item.productId] || 0) + item.quantity;
+    }
+  }
+
+  return Object.entries(productSales)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, topN)
+    .map(([productId, qty]) => {
+      const prod = products.find((p) => p.id === Number(productId));
+      return prod ? { ...prod, sold: qty } : null;
+    })
+    .filter(Boolean);
+}
+
+// 3. Sales Over Time (Assumes order.createdAt exists)
+export function getSalesOverTime(orders: (Order & { createdAt: string })[]) {
+  const grouped: Record<string, number> = {};
+
+  for (const order of orders) {
+    const date = new Date(order.createdAt).toISOString().split("T")[0];
+    grouped[date] = (grouped[date] || 0) + order.totalAmount;
+  }
+
+  return Object.entries(grouped)
+    .sort(([a], [b]) => (a > b ? 1 : -1))
+    .map(([date, amount]) => ({ date, amount }));
+}
+
+// 4. Top Customers by Total Spend
 export function getTopCustomers(
-  orders: Order[],
-  users: User[],
-  products: Product[]
+  orders: (Order & { customer: { id: number; name: string } })[],
+  topN = 5
 ) {
-  const map: Record<
-    number,
-    { name: string; totalSpent: number; orders: number }
-  > = {};
+  const customerTotals: Record<number, { name: string; total: number }> = {};
 
   for (const order of orders) {
-    const user = users.find((u) => u.id === order.userId);
-    const product = products.find((p) => p.id === order.productId);
-    if (!user || !product) continue;
-
-    if (!map[user.id]) {
-      map[user.id] = {
-        name: user.name,
-        totalSpent: 0,
-        orders: 0,
-      };
-    }
-
-    map[user.id].totalSpent += product.price * order.quantity;
-    map[user.id].orders += 1;
+    const { id, name } = order.customer;
+    customerTotals[id] = {
+      name,
+      total: (customerTotals[id]?.total || 0) + order.totalAmount,
+    };
   }
 
-  return Object.values(map).sort((a, b) => b.totalSpent - a.totalSpent);
+  return Object.values(customerTotals)
+    .sort((a, b) => b.total - a.total)
+    .slice(0, topN);
 }
 
-export function getProductRatings(products: Product[]) {
-  return products
-    .filter((p) => p.rating)
-    .map((p) => ({
-      id: p.id,
-      title: p.title,
-      rating: p.rating?.rate ?? 0,
-      reviews: p.rating?.count ?? 0,
-    }))
-    .sort((a, b) => b.rating - a.rating);
+// // 5. Low Stock Products
+// export function getLowStockProducts(products: Product[], threshold = 10) {
+//   return products.filter((p) => p.stock < threshold);
+// }
+
+// 6. Category Distribution
+export function getCategoryDistribution(
+  products: (Product & { category: string })[]
+) {
+  const result: Record<string, number> = {};
+  for (const product of products) {
+    result[product.category] = (result[product.category] || 0) + 1;
+  }
+
+  return Object.entries(result).map(([category, count]) => ({
+    category,
+    count,
+  }));
+}
+
+// 7. Average Order Value
+export function getAverageOrderValue(orders: Order[]) {
+  if (orders.length === 0) return 0;
+  return getTotalRevenue(orders) / orders.length;
+}
+
+// 8. Repeat Purchase Ratio (Assumes orders have .customer.id)
+export function getRepeatCustomerRatio(
+  orders: (Order & { customer: { id: number } })[]
+) {
+  const customerOrderCount: Record<number, number> = {};
+  for (const order of orders) {
+    const id = order.customer.id;
+    customerOrderCount[id] = (customerOrderCount[id] || 0) + 1;
+  }
+
+  const repeaters = Object.values(customerOrderCount).filter(
+    (count) => count > 1
+  ).length;
+
+  const total = Object.keys(customerOrderCount).length;
+  return total === 0 ? 0 : repeaters / total;
 }

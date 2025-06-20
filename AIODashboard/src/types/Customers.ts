@@ -30,7 +30,7 @@ export interface User {
     type: string;
   };
   ip: string;
-  address: Address;
+  address: CustomerAddress;
   macAddress: string;
   university: string;
   bank: Bank;
@@ -46,7 +46,7 @@ export interface User {
   role: "admin" | "moderator" | "user" | string;
 }
 
-export interface Address {
+export interface CustomerAddress {
   address: string;
   city: string;
   state: string;
@@ -71,7 +71,7 @@ export interface Company {
   department: string;
   name: string;
   title: string;
-  address: Address;
+  address: CustomerAddress;
 }
 
 // TYPES FOR TABLE USE -----------------------------
@@ -88,13 +88,13 @@ export interface TableUser {
   action?: React.ReactNode; // action buttons (edit/view/delete etc.)
 }
 
-export interface HeadCell {
+export interface CustomerHeadCell {
   disablePadding: boolean;
   id: keyof TableUser;
   label: string;
   numeric: boolean;
 }
-export interface EnhancedTableProps {
+export interface CustomerEnhancedTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,

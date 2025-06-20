@@ -24,12 +24,12 @@ import InfoIcon from "@mui/icons-material/Info";
 import type { UserResponse } from "../../types/Customers.ts";
 import type {
   TableUser,
-  HeadCell,
-  EnhancedTableProps,
+  CustomerHeadCell,
+  CustomerEnhancedTableProps,
 } from "../../types/Customers.ts";
 import type {
   EnhancedTableToolbarProps,
-  Order,
+  Sort,
 } from "../../types/EnhancedTable.ts";
 import { useNavigate } from "react-router";
 
@@ -44,7 +44,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 }
 
 function getComparator<Key extends keyof any>(
-  order: Order,
+  order: Sort,
   orderBy: Key
 ): (
   a: { [key in Key]: number | string },
@@ -55,7 +55,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells: readonly CustomerHeadCell[] = [
   {
     id: "id",
     numeric: false,
@@ -119,7 +119,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props: CustomerEnhancedTableProps) {
   const {
     onSelectAllClick,
     order,
@@ -231,7 +231,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function EnhancedTable(props: UserResponse) {
   const navigate = useNavigate();
   const rows = props.users;
-  const [order, setOrder] = React.useState<Order>("asc");
+  const [order, setOrder] = React.useState<Sort>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof TableUser>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
