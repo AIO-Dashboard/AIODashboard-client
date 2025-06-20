@@ -18,6 +18,8 @@ import type { UserResponse } from "../../types/Customers";
 import type { OrdersResponse } from "../../types/Orders";
 import type { ProductsResponse } from "../../types/Products";
 
+import KPICards from "./KPICards";
+
 export default function Dashboard() {
   // Accesses the context provided by the ProtectedRoute
   const {
@@ -40,6 +42,21 @@ export default function Dashboard() {
   console.log("Dashboard users:", users);
   console.log("Dashboard products:", products);
   console.log("Dashboard orders:", orders);
+
+  // Test
+  // function aveOrderVal() {
+  //   let total = 0;
+  //   for (const order of orders) {
+  //     total += order.totalAmount;
+  //   }
+  //   console.log(
+  //     "Average Order Value 2:",
+  //     orders.length,
+  //     total,
+  //     total / orders.length
+  //   );
+  // }
+  // aveOrderVal();
 
   // ----- ANALYTICS: useMemo Calculations -----
 
@@ -101,6 +118,19 @@ export default function Dashboard() {
       {/* <Grid container size={{ xs: 12 }}> */}
       <Grid size={{ xs: 12 }}>
         <h1>Dashboard</h1>
+        {/* | [💰 Revenue] [🧾 AOV] [🔁 Loyalty] [⚠️ Low Stock#]  | <- KPI Cards (4 cols) */}
+        {/* <Grid container>
+          <Grid size={{ xs: 6, sm: 3 }}>Revenue</Grid>
+          <Grid size={{ xs: 6, sm: 3 }}>AOV</Grid>
+          <Grid size={{ xs: 6, sm: 3 }}>Loyalty</Grid>
+          <Grid size={{ xs: 6, sm: 3 }}>Low Stock</Grid>
+        </Grid> */}
+        <KPICards
+          totalRevenue={totalRevenue.toFixed(2)}
+          avgOrderValue={avgOrderValue.toFixed(2)}
+          lowStockProducts={lowStockProducts.length}
+          repeatPurchaseRatio={(repeatPurchaseRatio * 100).toFixed(1) + "%"}
+        />
       </Grid>
       {/* <Grid size={{ xs: 6 }}> */}
     </>
