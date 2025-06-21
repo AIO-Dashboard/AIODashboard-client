@@ -23,6 +23,7 @@ import SalesChart from "./SalesChart";
 import CategoriesPieChart from "./CategoriesPieChart";
 import CategoriesList from "./CategoriesList";
 import TopItemsAccordion from "./TopItemsAccordion";
+import LowStockProducts from "./LowStockProducts";
 
 export default function Dashboard() {
   // Accesses the context provided by the ProtectedRoute
@@ -106,9 +107,9 @@ export default function Dashboard() {
     "color: #1976d2; font-weight: bold;"
   );
   console.log("/🧾 Total Revenue:", totalRevenue);
-  console.log("📦 Top Products:", topProducts);
+  console.log("/📦 Top Products:", topProducts);
   console.log("/📈 Sales Over Time:", salesOverTime);
-  console.log("👥 Top Customers:", topCustomers);
+  console.log("/👥 Top Customers:", topCustomers);
   console.log("/📊 Category Distribution:", categoryDist);
   console.log("/💰 Average Order Value:", avgOrderValue.toFixed(2));
   console.log(
@@ -125,18 +126,21 @@ export default function Dashboard() {
       {/* <Grid container size={{ xs: 12 }}> */}
       <Grid size={{ xs: 12 }}>
         <h1>Dashboard</h1>
-        {/* | [💰 Revenue] [🧾 AOV] [🔁 Loyalty] [⚠️ Low Stock#]  | <- KPI Cards (4 cols) */}
-        <KPICards
-          totalRevenue={totalRevenue.toFixed(2)}
-          avgOrderValue={avgOrderValue.toFixed(2)}
-          lowStockProducts={lowStockProducts.length} // turns red-amber-green
-          // lowStockProducts={26}
-          repeatPurchaseRatio={repeatPurchaseRatio} // turns red-amber-green
-          // repeatPurchaseRatio={0.11}
-        />
+        <Grid container sx={{ paddingTop: 2 }}>
+          {/* | [💰 Revenue] [🧾 AOV] [🔁 Loyalty] [⚠️ Low Stock#]  | <- KPI Cards (4 cols) */}
+          <KPICards
+            totalRevenue={totalRevenue.toFixed(2)}
+            avgOrderValue={avgOrderValue.toFixed(2)}
+            lowStockProducts={lowStockProducts.length} // turns red-amber-green
+            // lowStockProducts={26}
+            repeatPurchaseRatio={repeatPurchaseRatio} // turns red-amber-green
+            // repeatPurchaseRatio={0.11}
+          />
+        </Grid>
+        {/* <Grid container sx={{ paddingTop: 2 }}> */}
         <SalesChart salesOverTime={salesOverTime} />
-        {/* |         📊 Category Pie        |   🏆 Top Products |
-|                                |   👥 Top Customers| */}
+        {/* </Grid> */}
+
         <Grid container sx={{ paddingTop: 2 }}>
           <Grid size={{ xs: 12 }}>
             <h2>Category Distribution</h2>
@@ -148,8 +152,7 @@ export default function Dashboard() {
             <CategoriesList categoryDist={categoryDist} />
           </Grid>
         </Grid>
-
-        <Grid container sx={{ marginTop: "20px" }}>
+        <Grid container sx={{ paddingTop: 2 }}>
           <Grid
             size={{ xs: 12, md: 6 }}
             sx={{
@@ -171,10 +174,10 @@ export default function Dashboard() {
             <TopItemsAccordion type="customers" topItems={topCustomers} />
           </Grid>
         </Grid>
-
-        <Grid container>
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <div id="lowStockProducts">Low stocks</div>
+        <Grid container sx={{ paddingTop: 2 }}>
+          <Grid id="lowStockProducts" size={{ xs: 12 }}>
+            <h2>Low on stock</h2>
+            <LowStockProducts lowStockProducts={lowStockProducts} />
           </Grid>
         </Grid>
       </Grid>

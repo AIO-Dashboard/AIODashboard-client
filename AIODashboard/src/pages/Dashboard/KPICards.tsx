@@ -112,6 +112,7 @@ function KPICards({
                   ),
                   "&:hover": {
                     backgroundColor: "action.selectedHover",
+                    cursor: card.id === 4 ? "pointer" : "default",
                   },
                 }}
               >
