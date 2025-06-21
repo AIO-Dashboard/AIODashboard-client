@@ -176,7 +176,7 @@ export default function Dashboard() {
         </Grid>
         <Grid container sx={{ paddingTop: 2 }}>
           <Grid id="lowStockProducts" size={{ xs: 12 }}>
-            <h2>Low on stock</h2>
+            <h2>Low Stock Products</h2>
             <LowStockProducts lowStockProducts={lowStockProducts} />
           </Grid>
         </Grid>

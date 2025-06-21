@@ -60,6 +60,7 @@ function getComparator<Key extends keyof any>(
 //                     <TableCell align="left">{row.totalAmount}</TableCell>
 //                     <TableCell align="left">{row.paymentMethod}</TableCell>
 //                     <TableCell align="left">{row.carrier}</TableCell>
+// TODO dynamic columns like in Low Stock Products
 const headCells: readonly HeadCell[] = [
   {
     id: "id",

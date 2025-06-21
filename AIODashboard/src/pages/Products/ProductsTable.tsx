@@ -56,6 +56,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+// TODO dynamic columns like in Low Stock Products
 const headCells: readonly ProductsHeadCell[] = [
   // add stock no.
   {

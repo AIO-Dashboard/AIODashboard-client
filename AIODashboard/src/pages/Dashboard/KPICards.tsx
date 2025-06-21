@@ -131,7 +131,7 @@ function KPICards({
                         href="#lowStockProducts"
                         style={{
                           color: "inherit",
-                          textDecoration: "none",
+                          //   textDecoration: "dotted",
                           display: "flex",
                           alignItems: "center",
                           marginTop: "-4px",
