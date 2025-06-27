@@ -13,14 +13,15 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 
-export default function Settings() {
-  const [isDark, setisDark] = useState(false);
+export default function Settings({ setMode }) {
+  const [isDark, setisDark] = useState("light");
   const handleChangeTheme = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: boolean
+    newAlignment: string
   ) => {
     if (newAlignment !== null) {
       setisDark(newAlignment);
+      setMode(newAlignment);
     }
   };
 
@@ -102,8 +103,14 @@ export default function Settings() {
               onChange={handleChangeTheme}
               aria-label="Platform"
             >
-              <ToggleButton value={false}>LIGHT</ToggleButton>
-              <ToggleButton value={true}>DARK</ToggleButton>
+              <ToggleButton value={"light"} disabled>
+                LIGHT
+              </ToggleButton>
+              {/* <Tooltip title="Under construction"> */}
+              <ToggleButton value={"dark"} disabled>
+                DARK
+              </ToggleButton>
+              {/* </Tooltip> */}
             </ToggleButtonGroup>
           </CustomBox>
 

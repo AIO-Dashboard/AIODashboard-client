@@ -27,7 +27,14 @@ import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 
+import { useColorScheme } from "@mui/material/styles";
 function App() {
+  const { mode, setMode } = useColorScheme();
+  // if (!mode) {
+  //   return null;
+  //   return <></>;
+  // }
+
   const { isLoggedIn } = useAuth();
   const [isSidebarOpen, setisSidebarOpen] = useState(false);
 
@@ -76,7 +83,7 @@ function App() {
             <Route path="/customers/:id" element={<CustomerDetail />} />
             {/* -details about one, can see orders and redirect to OrderDetail */}
 
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<Settings setMode={setMode} />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
