@@ -1,5 +1,6 @@
-import { useCustomers } from "../../hooks/useCustomers";
-
+// import { useCustomers } from "../../hooks/index";
+import { useOutletContext } from "react-router-dom";
+import type { UserResponse } from "../../types/Customers";
 import { Box, Typography } from "@mui/material";
 
 import CustomersTable from "./CustomersTable";
@@ -7,7 +8,16 @@ import CustomersTable from "./CustomersTable";
 import Spinner from "../../components/Spinner";
 
 export default function Customers() {
-  const { data, isLoading, isError } = useCustomers();
+  // const { data, isLoading, isError } = useCustomers();
+  const {
+    users: data,
+    usersisLoading: isLoading,
+    usersisError: isError,
+  } = useOutletContext<{
+    users: UserResponse;
+    usersisLoading: boolean;
+    usersisError: boolean;
+  }>();
 
   console.log("Customers:", data && data);
   if (isLoading) {

@@ -1,13 +1,24 @@
-import { useProducts } from "../../hooks/useProducts";
+// import { useProducts } from "../../hooks/useProducts";
+import { useOutletContext } from "react-router-dom";
 
 import { Box, Typography } from "@mui/material";
 
 import ProductsTable from "./ProductsTable";
 
 import Spinner from "../../components/Spinner";
+import type { ProductsResponse } from "../../types/Products";
 
 export default function Products() {
-  const { data, isLoading, isError } = useProducts();
+  // const { data, isLoading, isError } = useProducts();
+  const {
+    products: data,
+    productsisLoading: isLoading,
+    productsisError: isError,
+  } = useOutletContext<{
+    products: ProductsResponse;
+    productsisLoading: boolean;
+    productsisError: boolean;
+  }>();
 
   console.log("Products:", data && data);
   if (isLoading) {

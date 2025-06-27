@@ -1,5 +1,5 @@
 import { Grid, Link, Stack, Typography } from "@mui/material";
-import { useOrderDetail } from "../../hooks/useOrders";
+import { useOrderDetail } from "../../hooks/index";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import StatusHistory from "./StatusHistory";
