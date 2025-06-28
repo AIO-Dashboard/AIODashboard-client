@@ -1,6 +1,7 @@
 import styles from "./Login.module.scss";
 import Button from "@mui/material/Button";
 import { useAuth } from "../../context/AuthContext/AuthContext";
+import { Tooltip } from "@mui/material";
 
 export default function Login() {
   const { login } = useAuth();
@@ -27,11 +28,12 @@ export default function Login() {
         type="password"
         // required
       />
-
-      <Button type="submit" variant={"contained"}>
-        {/* <Button type="submit" variant={"outlined"}> */}
-        Login
-      </Button>
+      <Tooltip title="Click me!" open arrow>
+        <Button type="submit" variant={"contained"}>
+          {/* <Button type="submit" variant={"outlined"}> */}
+          Login
+        </Button>
+      </Tooltip>
     </form>
   );
 }
