@@ -67,6 +67,7 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "ID",
+    display: { xs: "none", sm: "table-cell" },
   },
   {
     id: "orderNumber",
@@ -85,30 +86,35 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Status",
+    display: { xs: "none", lg: "table-cell" },
   },
   {
     id: "createdAt",
     numeric: false,
     disablePadding: false,
     label: "Created At",
+    display: { xs: "none", sm: "table-cell" },
   },
   {
     id: "totalAmount",
     numeric: false,
     disablePadding: false,
     label: "Total Amount",
+    display: { xs: "none", md: "table-cell" },
   },
   {
     id: "paymentMethod",
     numeric: false,
     disablePadding: false,
     label: "Payment Method",
+    display: { xs: "none", lg: "table-cell" },
   },
   {
     id: "carrier",
     numeric: false,
     disablePadding: false,
     label: "Carrier",
+    display: { xs: "none", md: "table-cell" },
   },
   {
     id: "action",
@@ -152,6 +158,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{
+              display: headCell.display || "table-cell", // default fallback
+            }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -314,7 +323,7 @@ export default function EnhancedTable(props: OrdersResponse) {
         />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            // sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={"small"}
           >
@@ -357,18 +366,42 @@ export default function EnhancedTable(props: OrdersResponse) {
                       scope="row"
                       // padding="none"
                       align="left"
+                      sx={{ display: { xs: "none", sm: "table-cell" } }}
                     >
                       {row.id}
                     </TableCell>
                     <TableCell align="left">{row.orderNumber}</TableCell>
                     <TableCell align="left">{row.customer.name}</TableCell>
-                    <TableCell align="left">{row.status}</TableCell>
-                    <TableCell align="left">{row.createdAt}</TableCell>
-                    <TableCell align="left">
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", lg: "table-cell" } }}
+                    >
+                      {row.status}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", sm: "table-cell" } }}
+                    >
+                      {new Date(row.createdAt).toLocaleString()}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
                       ${row.totalAmount.toLocaleString()}
                     </TableCell>
-                    <TableCell align="left">{row.paymentMethod}</TableCell>
-                    <TableCell align="left">{row.carrier}</TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", lg: "table-cell" } }}
+                    >
+                      {row.paymentMethod}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
+                      {row.carrier}
+                    </TableCell>
                     <TableCell
                       align="right"
                       onClick={(e) => e.preventDefault()}

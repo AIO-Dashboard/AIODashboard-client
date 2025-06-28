@@ -39,14 +39,21 @@ export default function DenseTable({ lowStockProducts }) {
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+      <Table
+        size="small"
+        aria-label="a dense table"
+        // sx={{ minWidth: 650 }}
+      >
         <TableHead>
           <TableRow>
             <TableCell sx={{ fontWeight: "bold" }} align="left" width={5}>
               Stock
             </TableCell>
             <TableCell
-              sx={{ minWidth: "250px", fontWeight: "bold" }}
+              sx={{
+                // minWidth: "250px",
+                fontWeight: "bold",
+              }}
               //   width={"100%"}
             >
               Product name

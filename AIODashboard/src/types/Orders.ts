@@ -103,6 +103,13 @@ export interface HeadCell {
   id: keyof TableOrder;
   label: string;
   numeric: boolean;
+  display?: {
+    xs?: string | undefined;
+    sm?: string | undefined;
+    md?: string | undefined;
+    lg?: string | undefined;
+    xl?: string | undefined;
+  };
 }
 export interface EnhancedTableProps {
   numSelected: number;

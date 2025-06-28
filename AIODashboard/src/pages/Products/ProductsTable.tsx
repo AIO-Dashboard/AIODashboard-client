@@ -76,30 +76,35 @@ const headCells: readonly ProductsHeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Price",
+    display: { xs: "none", md: "table-cell" },
   },
   {
     id: "brand",
     numeric: false,
     disablePadding: false,
     label: "Brand",
+    display: { xs: "none", md: "table-cell" },
   },
   {
     id: "stock",
     numeric: false,
     disablePadding: false,
     label: "Stock",
+    display: { xs: "none", sm: "table-cell" },
   },
   {
     id: "description",
     numeric: false,
     disablePadding: false,
     label: "Description",
+    display: { xs: "none", lg: "table-cell" },
   },
   {
     id: "rating",
     numeric: false,
     disablePadding: false,
     label: "Rating",
+    display: { xs: "none", md: "table-cell" },
   },
   {
     id: "action",
@@ -143,6 +148,12 @@ function EnhancedTableHead(props: ProductsEnhancedTableProps) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{
+              display: headCell.display || "table-cell", // default fallback
+              // ...(headCell.display || {}), // only spread if defined
+            }}
+            // xs: headCell.id === "description" ? "none" : "",
+            // lg: "table-cell",
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -305,7 +316,7 @@ export default function EnhancedTable(props: ProductsResponse) {
         />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            // sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={"small"}
           >
@@ -352,11 +363,34 @@ export default function EnhancedTable(props: ProductsResponse) {
                       {row.id}
                     </TableCell>
                     <TableCell align="left">{row.title}</TableCell>
-                    <TableCell align="left">${row.price}</TableCell>
-                    <TableCell align="left">{row.brand}</TableCell>
-                    <TableCell align="left">{row.stock} left</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
+                      ${row.price}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
+                      {row.brand}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", sm: "table-cell" } }}
+                    >
+                      {row.stock} left
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", lg: "table-cell" } }}
+                    >
+                      {row.description}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
                       <Box
                         sx={{
                           display: "flex",
