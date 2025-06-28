@@ -26,6 +26,9 @@ importers:
       '@mui/styled-engine-sc':
         specifier: ^7.1.1
         version: 7.1.1(styled-components@6.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+      '@mui/utils':
+        specifier: ^7.1.1
+        version: 7.1.1(@types/react@19.1.8)(react@19.1.0)
       '@tanstack/react-query':
         specifier: ^5.80.7
         version: 5.81.5(react@19.1.0)
