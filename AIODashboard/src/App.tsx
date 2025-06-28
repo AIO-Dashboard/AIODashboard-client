@@ -93,7 +93,7 @@ function App() {
         <br />
       </Container>
       {/* </div> */}
-      <footer>@AIO Dashboard 2025</footer>
+      <footer style={{ textAlign: "center" }}>@AIO Dashboard 2025</footer>
     </>
   );
 }
