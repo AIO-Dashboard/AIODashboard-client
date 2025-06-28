@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  max-width: 600px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  svg,
+  p {
+    display: inline-block;
+    height: 80px;
+    width: 80px;
+    flex-shrink: 0;
+    margin: 15px;
+    animation: breathe 4s ease-in-out infinite;
+    transition: transform 0.3s ease;
+  }
+  p {
+    display: block;
+    width: auto;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.button {
+  animation: breathe 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
