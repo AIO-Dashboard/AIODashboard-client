@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Button,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 
 import ToggleButton from "@mui/material/ToggleButton";
@@ -71,15 +72,21 @@ export default function Settings({ setMode }) {
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+          justifyContent: { xs: "flex-start", md: "space-between" },
           marginBottom: "20px",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
         }}
       >
         {children}
       </Box>
     );
   };
+
+  const isTooNarrowForExport = useMediaQuery("(max-width:400px)");
 
   return (
     <>
@@ -90,7 +97,7 @@ export default function Settings({ setMode }) {
             width: "100%",
             maxWidth: 500,
             margin: "auto",
-            padding: 5,
+            padding: { xs: 1, md: 5 },
             bgcolor: "background.paper",
           }}
         >
@@ -122,6 +129,7 @@ export default function Settings({ setMode }) {
               exclusive
               onChange={handledisplayLanguage}
               aria-label="Platform"
+              orientation={isTooNarrowForExport ? "vertical" : "horizontal"}
             >
               <ToggleButton value={"EN"}>
                 <img
@@ -167,7 +175,11 @@ export default function Settings({ setMode }) {
               </Typography>
             </Tooltip>
 
-            <ButtonGroup variant="outlined" aria-label="Loading button group">
+            <ButtonGroup
+              variant="outlined"
+              aria-label="Loading button group"
+              orientation={isTooNarrowForExport ? "vertical" : "horizontal"}
+            >
               <Button
                 loading={exportClicked.products}
                 onClick={() => handleExportData("products")}

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Container } from "@mui/material";
 
-import "./App.module.scss";
+import styles from "./App.module.scss";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Toast from "./components/Toast/Toast";
@@ -28,6 +28,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 
 import { useColorScheme } from "@mui/material/styles";
+import IntroBackdrop from "./components/IntroBackdrop/IntroBackdrop.widget";
 function App() {
   const { mode, setMode } = useColorScheme();
   // if (!mode) {
@@ -41,6 +42,7 @@ function App() {
   return (
     <>
       {/* <div> */}
+      <IntroBackdrop />
       <Toast />
       <Header
         setisSidebarOpen={setisSidebarOpen}
@@ -93,7 +95,7 @@ function App() {
         <br />
       </Container>
       {/* </div> */}
-      <footer>@AIO Dashboard 2025</footer>
+      <footer className={styles.footer}>@AIO Dashboard 2025</footer>
     </>
   );
 }
