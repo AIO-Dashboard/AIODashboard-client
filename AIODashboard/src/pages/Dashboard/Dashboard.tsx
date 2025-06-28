@@ -125,7 +125,7 @@ export default function Dashboard() {
     <>
       {/* <Grid container size={{ xs: 12 }}> */}
       <Grid size={{ xs: 12 }}>
-        <h1>Dashboard</h1>
+        <h1>AIO Dashboard</h1>
         <Grid container sx={{ paddingTop: 2 }}>
           {/* | [💰 Revenue] [🧾 AOV] [🔁 Loyalty] [⚠️ Low Stock#]  | <- KPI Cards (4 cols) */}
           <KPICards
