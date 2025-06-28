@@ -86,6 +86,7 @@ const headCells: readonly CustomerHeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Username",
+    display: { xs: "none", md: "table-cell" },
   },
 
   {
@@ -93,6 +94,7 @@ const headCells: readonly CustomerHeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Age",
+    display: { xs: "none", sm: "table-cell" },
   },
   {
     id: "address",
@@ -111,6 +113,7 @@ const headCells: readonly CustomerHeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Role",
+    display: { xs: "none", lg: "table-cell" },
   },
   {
     id: "action",
@@ -154,6 +157,10 @@ function EnhancedTableHead(props: CustomerEnhancedTableProps) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{
+              display: headCell.display || "table-cell", // default fallback
+              // ...(headCell.display || {}), // only spread if defined
+            }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -316,7 +323,7 @@ export default function EnhancedTable(props: UserResponse) {
         />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            // sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={"small"}
           >
@@ -368,14 +375,29 @@ export default function EnhancedTable(props: UserResponse) {
                     </TableCell>
                     {/* <TableCell align="left">{row.email}</TableCell> */}
                     {/* <TableCell align="left">{row.phone}</TableCell> */}
-                    <TableCell align="left">{row.username}</TableCell>
-                    <TableCell align="left">{row.age}</TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", md: "table-cell" } }}
+                    >
+                      {row.username}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", sm: "table-cell" } }}
+                    >
+                      {row.age}
+                    </TableCell>
                     <TableCell align="left">
                       {row.address.city + " " + row.address.state}
                     </TableCell>
 
                     {/* <TableCell align="left">{row.company.name}</TableCell> */}
-                    <TableCell align="left">{row.company.title}</TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ display: { xs: "none", lg: "table-cell" } }}
+                    >
+                      {row.company.title}
+                    </TableCell>
 
                     <TableCell
                       align="right"
