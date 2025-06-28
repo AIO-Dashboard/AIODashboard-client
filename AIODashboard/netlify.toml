@@ -1,5 +1,5 @@
 [build]
-  command = "npm run demo-build"
+  command = "pnpm run demo-build"
   publish = "dist"
 
 [build.environment]
