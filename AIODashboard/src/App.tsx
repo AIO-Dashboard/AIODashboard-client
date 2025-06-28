@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Container } from "@mui/material";
 
-import "./App.module.scss";
+import styles from "./App.module.scss";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Toast from "./components/Toast/Toast";
@@ -93,7 +93,7 @@ function App() {
         <br />
       </Container>
       {/* </div> */}
-      <footer style={{ textAlign: "center" }}>@AIO Dashboard 2025</footer>
+      <footer className={styles.footer}>@AIO Dashboard 2025</footer>
     </>
   );
 }
