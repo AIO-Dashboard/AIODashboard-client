@@ -28,6 +28,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 
 import { useColorScheme } from "@mui/material/styles";
+import IntroBackdrop from "./components/IntroBackdrop/IntroBackdrop.widget";
 function App() {
   const { mode, setMode } = useColorScheme();
   // if (!mode) {
@@ -41,6 +42,7 @@ function App() {
   return (
     <>
       {/* <div> */}
+      <IntroBackdrop />
       <Toast />
       <Header
         setisSidebarOpen={setisSidebarOpen}
