@@ -83,8 +83,24 @@ export default function SimpleBackdrop() {
           ))}
 
           {/* Custom Recharts text fallback */}
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography fontSize={48} color="#22b5bf">
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            sx={{
+              height: "100%",
+            }}
+          >
+            <Typography
+              // fontSize={48}
+              color="#22b5bf"
+              sx={{
+                fontSize: {
+                  sm: 24,
+                  md: 48,
+                },
+              }}
+            >
               {`<Recharts />`}
             </Typography>
             <Typography variant="caption" mt={1}>
