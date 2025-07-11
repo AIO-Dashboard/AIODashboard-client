@@ -34,7 +34,13 @@ export default function SimpleBackdrop() {
     <div>
       <Button
         onClick={handleOpen}
-        sx={{ position: "fixed", bottom: "10px", left: "10px", zIndex: 10000 }}
+        sx={{
+          position: "fixed",
+          bottom: "10px",
+          left: "10px",
+          zIndex: 10000,
+          backgroundColor: "#808080aa",
+        }}
         className={styles.button}
       >
         TECH STACK
