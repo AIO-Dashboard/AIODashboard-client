@@ -34,7 +34,13 @@ export default function SimpleBackdrop() {
     <div>
       <Button
         onClick={handleOpen}
-        sx={{ position: "fixed", bottom: "10px", left: "10px", zIndex: 10000 }}
+        sx={{
+          position: "fixed",
+          bottom: "10px",
+          left: "10px",
+          zIndex: 10000,
+          backgroundColor: "#808080aa",
+        }}
         className={styles.button}
       >
         TECH STACK
@@ -83,8 +89,24 @@ export default function SimpleBackdrop() {
           ))}
 
           {/* Custom Recharts text fallback */}
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography fontSize={48} color="#22b5bf">
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            sx={{
+              height: "100%",
+            }}
+          >
+            <Typography
+              // fontSize={48}
+              color="#22b5bf"
+              sx={{
+                fontSize: {
+                  sm: 24,
+                  md: 48,
+                },
+              }}
+            >
               {`<Recharts />`}
             </Typography>
             <Typography variant="caption" mt={1}>
