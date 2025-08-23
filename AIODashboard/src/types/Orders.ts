@@ -3,12 +3,10 @@ import type { Sort } from "./EnhancedTable";
 export interface OrdersResponse {
   orders: Order[];
   total: number;
-  skip: number;
-  limit: number;
 }
 
 export interface Order {
-  id: number;
+  _id: string;
   orderNumber: string;
   createdAt: string;
   updatedAt: string;
@@ -96,7 +94,7 @@ export interface TableOrder {
   totalAmount: number;
   paymentMethod: string;
   carrier: number;
-  action: any;
+  action: null;
 }
 export interface HeadCell {
   disablePadding: boolean;

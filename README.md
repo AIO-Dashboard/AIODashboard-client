@@ -21,6 +21,7 @@ Backend Repository: 🔗 [Github](https://github.com/AIO-Dashboard/AIODashboard-
 - 🟦 **TypeScript**
 - 🎨 **Material UI**
 - 📊 **Recharts**
+- 🔗 **Dummyjson**
 - 🛣️ **React Router**
 - 💅 **Styled Components**
 - ⚡ **Vite**
