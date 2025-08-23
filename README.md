@@ -7,8 +7,9 @@ It includes dynamic KPI cards, sales trends, customer insights, and inventory he
 
 ## 🚀 Live Demo
 
-🔗 [AIODashboard Frontend](https://aiodashboard.netlify.app/)  
-🔗 [AIODashboard-server Orders (Backend API)](https://aiodashboard-server.onrender.com/api/orders)
+🔗 [AIODashboard Frontend](https://aiodashboard.netlify.app/) (Hosted on Netlify)
+🔗 [AIODashboard-server Orders (Backend API)](https://aiodashboard-server.onrender.com/api/orders) (Hosted on Render)
+Backend Repository: 🔗 [Github](https://github.com/AIO-Dashboard/AIODashboard-server)
 
 ---
 
