@@ -5,7 +5,10 @@ export const useOrders = () =>
   useQuery<OrdersResponse>({
     queryKey: ["orders"],
     queryFn: async () => {
-      const res = await fetch("/generated_orders_response.json");
+      const res = await fetch(
+        "https://aiodashboard-server.onrender.com/api/orders"
+        // "http://localhost:5000/api/orders"
+      );
       if (!res.ok) throw new Error("Failed to fetch orders");
       return res.json();
     },
@@ -15,18 +18,14 @@ export const useOrderDetail = (id: string) =>
   useQuery<Order>({
     queryKey: ["order", id],
     queryFn: async () => {
-      const res = await fetch(`/generated_orders_response.json`);
+      const res = await fetch(
+        `https://aiodashboard-server.onrender.com/api/orders/${id}`
+        // `http://localhost:5000/api/orders/${id}`
+      );
 
       if (!res.ok) throw new Error(`Failed to fetch order '${id}'`);
 
-      const jsonOrders = await res.json();
-      const foundOrder = jsonOrders.orders.find(
-        (o: any) => String(o.id) === String(id)
-      );
-
-      if (!foundOrder) throw new Error(`Order '${id}' not found`);
-
-      return foundOrder;
+      return res.json();
     },
     enabled: !!id,
   });
