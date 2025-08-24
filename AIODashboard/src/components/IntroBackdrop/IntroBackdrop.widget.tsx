@@ -18,6 +18,10 @@ import {
   SiNetlify,
   SiGithub,
   SiSimpleicons,
+  SiMongodb,
+  SiMongoose,
+  SiExpress,
+  SiRender,
 } from "react-icons/si";
 import { Box, Container, Typography } from "@mui/material";
 
@@ -49,7 +53,7 @@ export default function SimpleBackdrop() {
         sx={(theme) => ({
           backgroundColor: "#171717ce",
           color: "#fff",
-          zIndex: theme.zIndex.drawer + 1,
+          zIndex: theme.zIndex.drawer + 301,
         })}
         open={open}
         onClick={handleClose}
@@ -60,6 +64,9 @@ export default function SimpleBackdrop() {
             { Icon: SiReact, label: "React", color: "#61DAFB" },
             { Icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
             { Icon: SiGithub, label: "GitHub", color: "#181717" },
+            { Icon: SiExpress, label: "ExpressJS", color: "#ff5100ff" },
+            { Icon: SiMongodb, label: "Mongo DB", color: "#39c751ff" },
+            { Icon: SiMongoose, label: "Mongoose", color: "#bb4123ff" },
             { Icon: SiMui, label: "Material UI", color: "#007FFF" },
             { Icon: SiReactrouter, label: "React Router", color: "#CA4245" },
             {
@@ -67,11 +74,11 @@ export default function SimpleBackdrop() {
               label: "Styled Components",
               color: "#DB7093",
             },
-            { Icon: SiVite, label: "Vite", color: "#646CFF" },
+            { Icon: SiVite, label: "Vite", color: "#b964ffff" },
             { Icon: SiSass, label: "Sass", color: "#CC6699" },
             { Icon: SiEslint, label: "ESLint", color: "#4B32C3" },
             { Icon: SiNetlify, label: "Netlify", color: "#00C7B7" },
-
+            { Icon: SiRender, label: "Render", color: "#000000ff" },
             { Icon: SiSimpleicons, label: "Simpleicons", color: "#181717" },
           ].map(({ Icon, label, color }) => (
             <Box
