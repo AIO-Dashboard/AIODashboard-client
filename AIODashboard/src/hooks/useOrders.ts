@@ -6,8 +6,9 @@ export const useOrders = () =>
     queryKey: ["orders"],
     queryFn: async () => {
       const res = await fetch(
-        "https://aiodashboard-server.onrender.com/api/orders"
-        // "http://localhost:5000/api/orders"
+        sessionStorage.getItem("role") === "localhost"
+          ? "http://localhost:5000/api/orders"
+          : "https://aiodashboard-server.onrender.com/api/orders"
       );
       if (!res.ok) throw new Error("Failed to fetch orders");
       return res.json();
@@ -19,8 +20,9 @@ export const useOrderDetail = (id: string) =>
     queryKey: ["order", id],
     queryFn: async () => {
       const res = await fetch(
-        `https://aiodashboard-server.onrender.com/api/orders/${id}`
-        // `http://localhost:5000/api/orders/${id}`
+        sessionStorage.getItem("role") === "localhost"
+          ? `http://localhost:5000/api/orders/${id}`
+          : `https://aiodashboard-server.onrender.com/api/orders/${id}`
       );
 
       if (!res.ok) throw new Error(`Failed to fetch order '${id}'`);
