@@ -18,7 +18,7 @@ export default function Login() {
         id="email"
         name="email"
         type="email"
-        placeholder="e.g. paulchristianmasayon2020@gmail.com (email me for job openings)"
+        placeholder="e.g. paulchristianmasayon2020@gmail.com (email for opportunities)"
         // required
       />
 
