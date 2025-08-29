@@ -18,6 +18,7 @@ export default function Login() {
         id="email"
         name="email"
         type="email"
+        placeholder="e.g. paulchristianmasayon2020@gmail.com (email me for job openings)"
         // required
       />
 
@@ -26,6 +27,7 @@ export default function Login() {
         id="password"
         name="password"
         type="password"
+        placeholder="********"
         // required
       />
       <Tooltip title="Click me!" open arrow>
