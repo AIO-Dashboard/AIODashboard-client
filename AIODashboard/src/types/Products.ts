@@ -6,6 +6,7 @@ export interface ProductsResponse {
   total: number;
   skip: number;
   limit: number;
+  page: number;
 }
 export interface Product {
   _id: string;

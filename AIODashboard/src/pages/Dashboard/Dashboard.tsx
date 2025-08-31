@@ -14,7 +14,7 @@ import {
 } from "../../utils/analytics";
 
 import { useMemo } from "react";
-import type { UserResponse } from "../../types/Customers";
+import type { UsersResponse } from "../../types/Customers";
 import type { OrdersResponse } from "../../types/Orders";
 import type { ProductsResponse } from "../../types/Products";
 
@@ -32,7 +32,7 @@ export default function Dashboard() {
     products: productsResponse,
     orders: ordersResponse,
   } = useOutletContext<{
-    users: UserResponse;
+    users: UsersResponse;
     products: ProductsResponse;
     orders: OrdersResponse;
   }>();
@@ -41,11 +41,11 @@ export default function Dashboard() {
   console.log("Dashboard productsResponse:", productsResponse);
   console.log("Dashboard ordersResponse:", ordersResponse);
 
-  const users = usersResponse.users;
+  const users = usersResponse.customers;
   const products = productsResponse.products;
   const orders = ordersResponse.orders;
   console.log("Dashboard users:", users);
-  console.log("Dashboard products:", products);
+  console.log("Dashboard products: x", products);
   console.log("Dashboard orders:", orders);
 
   // Test
@@ -79,7 +79,7 @@ export default function Dashboard() {
     () => getTopProducts(orders, products),
     [orders, products]
   );
-
+  console.log("Dashboard topProducts:", topProducts, orders, products);
   // Daily sales trend
   const salesOverTime = useMemo(() => getSalesOverTime(orders), [orders]);
 

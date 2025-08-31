@@ -5,10 +5,12 @@ import Spinner from "../../components/Spinner";
 import StatusHistory from "./StatusHistory";
 import OrderedItems from "./OrderedItems";
 
+import type { Order } from "../../types/Orders";
+
 export default function OrderDetail() {
   const { id } = useParams();
-  const { data, isLoading, isError } = useOrderDetail(id ? id : "");
-
+  const { data, isLoading, isError } = useOrderDetail<Order>(id ? id : "");
+  const order = data && data.data;
   console.log("OrderDetail:", data && data);
 
   if (isLoading) {
@@ -23,7 +25,7 @@ export default function OrderDetail() {
     );
   }
 
-  if (!data) {
+  if (!data || !order) {
     return (
       <Typography variant="h6" color="warning.main" sx={{ m: 4 }}>
         No order data found.
@@ -44,52 +46,52 @@ export default function OrderDetail() {
       <Grid size={{ xs: 12 }}>
         <h1 style={{ marginBottom: 0 }}>Order Details</h1>
         <Typography variant="caption" gutterBottom>
-          ({data.orderNumber})
+          ({order.orderNumber})
         </Typography>
       </Grid>
       <Grid size={{ xs: 12, sm: 6 }}>
         <Stack direction="column" spacing={1}>
           <Typography variant="caption" gutterBottom>
-            Total Amount: {data.totalAmount.toFixed(2)} {data.currency}
+            Total Amount: {order.totalAmount.toFixed(2)} {order.currency}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Payment Status: {data.paymentStatus}
+            Payment Status: {order.paymentStatus}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Payment Method: {data.paymentMethod}
+            Payment Method: {order.paymentMethod}
           </Typography>
 
           <Typography variant="caption" gutterBottom>
-            Transaction ID: {data.transactionId}
+            Transaction ID: {order.transactionId}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Order Date: {new Date(data.createdAt).toLocaleString()}
+            Order Date: {new Date(order.createdAt).toLocaleString()}
           </Typography>
         </Stack>
       </Grid>
       <Grid size={{ xs: 12, sm: 6 }}>
         <Stack direction="column" spacing={1}>
           <Typography variant="caption" gutterBottom>
-            Status: {data.status}
+            Status: {order.status}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Tracking No.: {data.trackingNumber || "N/A"}
+            Tracking No.: {order.trackingNumber || "N/A"}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Carrier: {data.carrier}
+            Carrier: {order.carrier}
           </Typography>
           <Typography variant="caption" gutterBottom>
             Estimated Delivery:{" "}
-            {new Date(data.estimatedDelivery).toLocaleString()}
+            {new Date(order.estimatedDelivery).toLocaleString()}
           </Typography>
           <Typography variant="caption" gutterBottom>
-            Delivered At: {data.deliveredAt}
+            Delivered At: {order.deliveredAt}
           </Typography>
         </Stack>
       </Grid>
       <Grid size={{ xs: 12 }}>
-        <StatusHistory statusHistory={data.statusHistory} />
-        <OrderedItems items={data.items} currency={data.currency} />
+        <StatusHistory statusHistory={order.statusHistory} />
+        <OrderedItems items={order.items} currency={order.currency} />
       </Grid>
       <Grid size={{ xs: 12 }}>
         <Typography variant="overline" gutterBottom>
@@ -106,15 +108,15 @@ export default function OrderDetail() {
               {/* customer.name shpiingAddress.address .city, .stateCode .postalCode .country 
               customer.phone */}
               <Typography variant="caption" gutterBottom>
-                {data.customer.name}
+                {order.customer.name}
               </Typography>
               <Typography variant="caption" gutterBottom>
-                {`${data.shippingAddress.address},
-                ${data.shippingAddress.city}, ${data.shippingAddress.stateCode}
-                ${data.shippingAddress.postalCode} ${data.shippingAddress.country}`}
+                {`${order.shippingAddress.address},
+                ${order.shippingAddress.city}, ${order.shippingAddress.stateCode}
+                ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
               </Typography>
               <Typography variant="caption" gutterBottom>
-                {data.customer.phone}
+                {order.customer.phone}
               </Typography>
             </Stack>
           </Grid>
@@ -124,19 +126,20 @@ export default function OrderDetail() {
               <Typography variant="overline" gutterBottom>
                 Billing
               </Typography>
-              {data.shippingAddress.address !== data.billingAddress.address ? (
+              {order.shippingAddress.address !==
+              order.billingAddress.address ? (
                 <>
                   {" "}
                   <Typography variant="caption" gutterBottom>
-                    {data.customer.name}
+                    {order.customer.name}
                   </Typography>
                   <Typography variant="caption" gutterBottom>
-                    {`${data.shippingAddress.address},
-                ${data.shippingAddress.city}, ${data.shippingAddress.stateCode}
-                ${data.shippingAddress.postalCode} ${data.shippingAddress.country}`}
+                    {`${order.shippingAddress.address},
+                ${order.shippingAddress.city}, ${order.shippingAddress.stateCode}
+                ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
                   </Typography>
                   <Typography variant="caption" gutterBottom>
-                    {data.customer.phone}
+                    {order.customer.phone}
                   </Typography>
                 </>
               ) : (
@@ -153,15 +156,15 @@ export default function OrderDetail() {
               <h2>Customer Info</h2>
             </Typography>
             <Typography variant="caption" gutterBottom>
-              {data.customer.name} ({data.customer.role})
+              {order.customer.name} ({order.customer.role})
             </Typography>
             <Typography variant="caption" gutterBottom>
-              <Link href={`mailto:${data.customer.email}`}>
-                {data.customer.email}
+              <Link href={`mailto:${order.customer.email}`}>
+                {order.customer.email}
               </Link>
             </Typography>
             <Typography variant="caption" gutterBottom>
-              {data.customer.phone}
+              {order.customer.phone}
             </Typography>
           </Stack>
         </Grid>

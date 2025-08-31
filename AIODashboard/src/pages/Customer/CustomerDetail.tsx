@@ -7,14 +7,15 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
 import Spinner from "../../components/Spinner";
+import type { User } from "../../types";
 
 export default function CustomerDetail() {
   const { id } = useParams(); // take id from url
 
   console.log("ProductDetail id:", id);
 
-  const { data, isLoading, isError } = useCustomerDetail(id ? id : "");
-  console.log("CustomerDetail:", data, isLoading, isError);
+  const { data, isLoading, isError } = useCustomerDetail<User>(id ? id : "");
+  const customer = data && data.data;
 
   const mask = (value: string, visibleCount = 4) => {
     return value.length > visibleCount
@@ -34,7 +35,7 @@ export default function CustomerDetail() {
     );
   }
 
-  if (!data) {
+  if (!data || !customer) {
     return (
       <Typography variant="h6" color="warning.main" sx={{ m: 4 }}>
         No customer data found.
@@ -77,15 +78,16 @@ export default function CustomerDetail() {
             <Stack direction="column" spacing={1}>
               <h1
                 style={{ marginTop: 0 }}
-              >{`${data.firstName} ${data.lastName}`}</h1>
-              <span>Username: {data.username}</span>
-              <span>Email: {data.email}</span>
-              <span>Mobile: {data.phone}</span>
+              >{`${customer.firstName} ${customer.lastName}`}</h1>
+              <span>Username: {customer.username}</span>
+              <span>Email: {customer.email}</span>
+              <span>Mobile: {customer.phone}</span>
               <span>
-                Home Address: {`${data.address.address}, ${data.address.city}`}
+                Home Address:{" "}
+                {`${customer.address.address}, ${customer.address.city}`}
               </span>
-              <span>Age: {data.age}</span>
-              <span>Date of birth: {data.birthDate}</span>
+              <span>Age: {customer.age}</span>
+              <span>Date of birth: {customer.birthDate}</span>
             </Stack>
           </Grid>
           <Grid
@@ -104,8 +106,8 @@ export default function CustomerDetail() {
           >
             <Box
               component="img"
-              src={data.image || "/react.svg"}
-              alt={`${data.firstName} ${data.lastName}`}
+              src={customer.image || "/react.svg"}
+              alt={`${customer.firstName} ${customer.lastName}`}
               loading="lazy"
               onError={(e) => {
                 e.target.onerror = null;
@@ -146,14 +148,16 @@ export default function CustomerDetail() {
                 <h2>Personal Details</h2>
               </Typography>
               <Stack spacing={1}>
-                <span>Blood Group: {data.bloodGroup}</span>
-                <span>Eye Color: {data.eyeColor}</span>
-                <span>Hair: {`${data.hair.type} ${data.hair.color}`}</span>
-                <span>Height: {data.height} cm</span>
-                <span>Weight: {data.weight} kg</span>
-                <span>SSN: {mask(data.ssn)}</span>
-                <span>EIN: {mask(data.ein)}</span>
-                <span>University: {data.university}</span>
+                <span>Blood Group: {customer.bloodGroup}</span>
+                <span>Eye Color: {customer.eyeColor}</span>
+                <span>
+                  Hair: {`${customer.hair.type} ${customer.hair.color}`}
+                </span>
+                <span>Height: {customer.height} cm</span>
+                <span>Weight: {customer.weight} kg</span>
+                <span>SSN: {mask(customer.ssn)}</span>
+                <span>EIN: {mask(customer.ein)}</span>
+                <span>University: {customer.university}</span>
               </Stack>
             </section>
           </Grid>
@@ -179,22 +183,23 @@ export default function CustomerDetail() {
                 <h2>Work & Financial</h2>
               </Typography>
               <Stack spacing={1}>
-                <span>Company: {data.company.name}</span>
-                <span>Title: {data.company.title}</span>
-                <span>Department: {data.company.department}</span>
+                <span>Company: {customer.company.name}</span>
+                <span>Title: {customer.company.title}</span>
+                <span>Department: {customer.company.department}</span>
                 <span>
                   Work Location:{" "}
-                  {`${data.company.address.address}, ${data.company.address.city}`}
+                  {`${customer.company.address.address}, ${customer.company.address.city}`}
                 </span>
 
                 <span>
-                  Bank: {data.bank.cardType} - {mask(data.bank.cardNumber)}
+                  Bank: {customer.bank.cardType} -{" "}
+                  {mask(customer.bank.cardNumber)}
                 </span>
-                <span>IBAN: {mask(data.bank.iban)}</span>
+                <span>IBAN: {mask(customer.bank.iban)}</span>
                 <span>
-                  Crypto: {data.crypto.coin} ({data.crypto.network})
+                  Crypto: {customer.crypto.coin} ({customer.crypto.network})
                 </span>
-                <span>Wallet: {mask(data.crypto.wallet)}</span>
+                <span>Wallet: {mask(customer.crypto.wallet)}</span>
               </Stack>
             </section>
           </Grid>

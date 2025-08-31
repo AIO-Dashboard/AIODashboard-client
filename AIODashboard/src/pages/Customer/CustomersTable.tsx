@@ -21,7 +21,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import InfoIcon from "@mui/icons-material/Info";
 
-import type { UserResponse } from "../../types/Customers.ts";
+import type { UsersResponse } from "../../types/Customers.ts";
 import type {
   TableUser,
   CustomerHeadCell,
@@ -236,7 +236,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function EnhancedTable(props: UserResponse) {
+export default function EnhancedTable(props: UsersResponse) {
   const navigate = useNavigate();
   console.log("CustomersTable props:", props);
   const rows = props.customers;

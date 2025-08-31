@@ -1,11 +1,12 @@
 import type { Sort } from "./EnhancedTable";
 
 // TYPES FOR RESPONSE DATA -----------------------------
-export interface UserResponse {
+export interface UsersResponse {
   customers: User[];
   total: number;
   skip: number;
   limit: number;
+  page: number;
 }
 
 export interface User {

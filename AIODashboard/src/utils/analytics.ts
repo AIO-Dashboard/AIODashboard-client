@@ -74,6 +74,8 @@ export function getTotalRevenue(orders: Order[]) {
 
 // 2. Top Products by Quantity Sold
 export function getTopProducts(orders: Order[], products: Product[], topN = 5) {
+  console.log("getTopProducts orders:", orders);
+  console.log("getTopProducts products:", products);
   const productSales: Record<number, number> = {};
 
   for (const order of orders) {
@@ -82,12 +84,23 @@ export function getTopProducts(orders: Order[], products: Product[], topN = 5) {
         (productSales[item.productId] || 0) + item.quantity;
     }
   }
+  console.log(
+    "getTopProducts getTopProducts:",
+    Object.entries(productSales)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN)
+      .map(([productId, qty]) => {
+        const prod = products.find((p) => p._id === productId);
+        return prod ? { ...prod, sold: qty } : null;
+      })
+      .filter(Boolean)
+  );
 
   return Object.entries(productSales)
     .sort((a, b) => b[1] - a[1])
     .slice(0, topN)
     .map(([productId, qty]) => {
-      const prod = products.find((p) => p.id === Number(productId));
+      const prod = products.find((p) => p._id === productId);
       return prod ? { ...prod, sold: qty } : null;
     })
     .filter(Boolean);
