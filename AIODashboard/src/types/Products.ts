@@ -8,7 +8,7 @@ export interface ProductsResponse {
   limit: number;
 }
 export interface Product {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   category: string;

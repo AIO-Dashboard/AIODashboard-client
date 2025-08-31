@@ -233,8 +233,8 @@ export default function EnhancedTable(props: ProductsResponse) {
   const navigate = useNavigate();
   const rows = props.products;
   const [order, setOrder] = React.useState<Sort>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("id");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
+  const [orderBy, setOrderBy] = React.useState<keyof TableProduct>("title");
+  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
 
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
@@ -252,16 +252,16 @@ export default function EnhancedTable(props: ProductsResponse) {
     if (event.target.checked) {
       // if (event.target.checked || event.target.indeterminate) {
 
-      const newSelected = visibleRows.map((n) => n.id);
+      const newSelected = visibleRows.map((n) => n._id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -302,7 +302,7 @@ export default function EnhancedTable(props: ProductsResponse) {
     [order, orderBy, page, rowsPerPage]
   );
 
-  const handleProductInfoClick = (id: number) => {
+  const handleProductInfoClick = (id: string) => {
     navigate(`/products/${id}`);
   };
 
@@ -330,17 +330,17 @@ export default function EnhancedTable(props: ProductsResponse) {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.id);
+                const isItemSelected = selected.includes(row._id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row._id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.id}
+                    key={row._id}
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
@@ -360,7 +360,7 @@ export default function EnhancedTable(props: ProductsResponse) {
                       // padding="none"
                       align="left"
                     >
-                      {row.id}
+                      {row._id}
                     </TableCell>
                     <TableCell align="left">{row.title}</TableCell>
                     <TableCell
@@ -409,7 +409,7 @@ export default function EnhancedTable(props: ProductsResponse) {
                     >
                       <Tooltip title="Product Detail">
                         <IconButton
-                          onClick={() => handleProductInfoClick(row.id)}
+                          onClick={() => handleProductInfoClick(row._id)}
                         >
                           <InfoIcon />
                         </IconButton>
