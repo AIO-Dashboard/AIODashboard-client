@@ -19,9 +19,15 @@ export default function TopItemsAccordion({
 }) {
   if (!topItems || topItems.length === 0) {
     return (
-      <Typography variant="h6" color="warning.main" sx={{ m: 4 }}>
-        No items found.
-      </Typography>
+      <>
+        <h2>
+          Top {type.slice(0, 1).toLocaleUpperCase()}
+          {type.slice(1)}
+        </h2>
+        <Typography variant="h6" color="warning.main" sx={{ m: 4 }}>
+          No items found.
+        </Typography>
+      </>
     );
   }
   return (
