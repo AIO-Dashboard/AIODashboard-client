@@ -21,7 +21,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import InfoIcon from "@mui/icons-material/Info";
 
-import type { UserResponse } from "../../types/Customers.ts";
+import type { UsersResponse } from "../../types/Customers.ts";
 import type {
   TableUser,
   CustomerHeadCell,
@@ -43,7 +43,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-function getComparator<Key extends keyof any>(
+function getComparator<Key extends keyof number | string>(
   order: Sort,
   orderBy: Key
 ): (
@@ -236,12 +236,13 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function EnhancedTable(props: UserResponse) {
+export default function EnhancedTable(props: UsersResponse) {
   const navigate = useNavigate();
-  const rows = props.users;
+  console.log("CustomersTable props:", props);
+  const rows = props.customers;
   const [order, setOrder] = React.useState<Sort>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof TableUser>("id");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
+  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
 
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
@@ -259,16 +260,16 @@ export default function EnhancedTable(props: UserResponse) {
     if (event.target.checked) {
       // if (event.target.checked || event.target.indeterminate) {
 
-      const newSelected = visibleRows.map((n) => n.id);
+      const newSelected = visibleRows.map((n) => n._id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -309,7 +310,7 @@ export default function EnhancedTable(props: UserResponse) {
     [order, orderBy, page, rowsPerPage]
   );
 
-  const handleUserInfoClick = (id: number) => {
+  const handleUserInfoClick = (id: string) => {
     navigate(`/customers/${id}`);
   };
 
@@ -337,17 +338,17 @@ export default function EnhancedTable(props: UserResponse) {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.id);
+                const isItemSelected = selected.includes(row._id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row._id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.id}
+                    key={row._id}
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
@@ -367,7 +368,7 @@ export default function EnhancedTable(props: UserResponse) {
                       padding="none"
                       align="left"
                     >
-                      {row.id}
+                      {row._id}
                     </TableCell>
 
                     <TableCell align="left">
@@ -404,7 +405,9 @@ export default function EnhancedTable(props: UserResponse) {
                       onClick={(e) => e.preventDefault()}
                     >
                       <Tooltip title="User Detail">
-                        <IconButton onClick={() => handleUserInfoClick(row.id)}>
+                        <IconButton
+                          onClick={() => handleUserInfoClick(row._id)}
+                        >
                           <InfoIcon />
                         </IconButton>
                       </Tooltip>

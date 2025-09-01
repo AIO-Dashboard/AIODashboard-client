@@ -1,22 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import type { UserResponse, User } from "../types/Customers";
+// import type { UserResponse, User } from "../types/Customers";
+import type { ApiResponse } from "../types";
 
-export const useCustomers = () => {
-  return useQuery<UserResponse>({
+const baseUrl =
+  sessionStorage.getItem("role") === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://aiodashboard-server.onrender.com/api";
+
+export const useCustomers = <T>() => {
+  return useQuery<ApiResponse<T>>({
     queryKey: ["customers"], // unique ID for caching
     queryFn: async () => {
-      const res = await fetch("https://dummyjson.com/users?limit=0");
+      const res = await fetch(baseUrl + "/customers");
       if (!res.ok) throw new Error("Failed to fetch users");
       return res.json();
     },
   });
 };
 
-export const useCustomerDetail = (id: string) => {
-  return useQuery<User>({
+export const useCustomerDetail = <T>(id: string) => {
+  return useQuery<ApiResponse<T>>({
     queryKey: ["customerDetail", id],
     queryFn: async () => {
-      const res = await fetch(`https://dummyjson.com/users/${id}`);
+      const res = await fetch(`${baseUrl}/customers/${id}`);
       if (!res.ok) throw new Error(`Failed to fetch user '${id}'`);
       return res.json();
     },

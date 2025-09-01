@@ -3,6 +3,9 @@ import type { Sort } from "./EnhancedTable";
 export interface OrdersResponse {
   orders: Order[];
   total: number;
+  skip: number;
+  limit: number;
+  page: number;
 }
 
 export interface Order {

@@ -5,6 +5,9 @@ import { Box } from "@mui/material";
 
 import { useProducts, useCustomers, useOrders } from "../../hooks/index.ts";
 import Spinner from "../Spinner.tsx";
+import type { UsersResponse } from "../../types/Customers.ts";
+import type { ProductsResponse } from "../../types/Products.ts";
+import type { OrdersResponse } from "../../types/Orders.ts";
 
 const ProtectedRoute = () => {
   const { isLoggedIn } = useAuth();
@@ -13,22 +16,24 @@ const ProtectedRoute = () => {
     data: users,
     isLoading: usersisLoading,
     isError: usersisError,
-  } = useCustomers();
+  } = useCustomers<UsersResponse>();
   const {
     data: products,
     isLoading: productsisLoading,
     isError: productsisError,
-  } = useProducts();
+  } = useProducts<ProductsResponse>();
   const {
     data: orders,
     isLoading: ordersisLoading,
     isError: ordersisError,
-  } = useOrders();
+  } = useOrders<OrdersResponse>();
   // const products = useProducts();
   // const orders = useOrders();
 
   const loading = usersisLoading || productsisLoading || ordersisLoading;
-
+  console.log("ProtectedRoute users:", users);
+  console.log("ProtectedRoute products:", products);
+  console.log("ProtectedRoute orders:", orders);
   if (loading) {
     return (
       <Box
@@ -45,9 +50,9 @@ const ProtectedRoute = () => {
   return isLoggedIn ? (
     <Outlet
       context={{
-        users: users,
-        products: products,
-        orders: orders,
+        users: users && users.data ? users.data : { customers: [] },
+        products: products && products.data ? products.data : { products: [] },
+        orders: orders && orders.data ? orders.data : { orders: [] },
         usersisError: usersisError,
         productsisError: productsisError,
         ordersisError,

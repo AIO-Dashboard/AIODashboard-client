@@ -19,7 +19,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 
-import type { Review } from "../../types/Products";
+import type { Product, Review } from "../../types/Products";
 import Spinner from "../../components/Spinner";
 
 export default function ProductDetail() {
@@ -27,14 +27,15 @@ export default function ProductDetail() {
 
   console.log("ProductDetail id:", id);
 
-  const { data, isLoading, isError } = useProductDetail(id ? id : "");
+  const { data, isLoading, isError } = useProductDetail<Product>(id ? id : "");
   console.log("ProductDetail:", data, isLoading, isError);
+  const product = data && data.data;
 
-  if (isLoading) {
-    return <Spinner text="Loading product info..." />;
-  }
-
-  if (isError) {
+  if (
+    isError
+    // || !product.success
+  ) {
+    console.log("Error loading product detail.");
     return (
       <Typography variant="h6" color="error" sx={{ m: 4 }}>
         Failed to load product details. Please try again later.
@@ -42,7 +43,13 @@ export default function ProductDetail() {
     );
   }
 
-  if (!data) {
+  if (isLoading) {
+    console.log("Loading product detail...");
+    return <Spinner text="Loading product info..." />;
+  }
+
+  if (!data || !product) {
+    console.log("No product data found.");
     return (
       <Typography variant="h6" color="warning.main" sx={{ m: 4 }}>
         No product data found.
@@ -63,8 +70,8 @@ export default function ProductDetail() {
       <Grid size={{ xs: 12, sm: 6 }}>
         <Box
           component="img"
-          src={data.images[0] || "/react.svg"}
-          alt={data.title}
+          src={product.images[0] || "/react.svg"}
+          alt={product.title}
           loading="lazy"
           onError={(e) => {
             e.target.onerror = null;
@@ -83,12 +90,12 @@ export default function ProductDetail() {
 
       <Grid size={{ xs: 12, sm: 6 }}>
         <Stack direction="column" spacing={1}>
-          <h1>{data.title}</h1>
+          <h1>{product.title}</h1>
 
           <Stack direction="row" spacing={1}>
-            <Chip label={data.category} size="small" variant="outlined" />
+            <Chip label={product.category} size="small" variant="outlined" />
             <Divider orientation="vertical" flexItem />
-            {data.tags.map((tag: string) => (
+            {product.tags.map((tag: string) => (
               <Chip label={tag} size="small" variant="outlined" key={tag} />
             ))}
           </Stack>
@@ -99,18 +106,18 @@ export default function ProductDetail() {
           >
             <Rating
               name="read-only"
-              value={data.rating}
+              value={product.rating}
               precision={0.5}
               readOnly
             />
-            <Typography variant="caption">{data.rating}</Typography>
+            <Typography variant="caption">{product.rating}</Typography>
           </Stack>
-          <p>{data.description}</p>
-          <Typography variant="h6" component="data" value={data.price}>
-            ${data.price.toFixed(2)}{" "}
-            {data.discountPercentage > 0 && (
+          <p>{product.description}</p>
+          <Typography variant="h6" component="data" value={product.price}>
+            ${product.price.toFixed(2)}{" "}
+            {product.discountPercentage > 0 && (
               <Typography variant="caption">
-                ({data.discountPercentage}% discount)
+                ({product.discountPercentage}% discount)
               </Typography>
             )}
           </Typography>
@@ -120,28 +127,28 @@ export default function ProductDetail() {
               gutterBottom
               sx={{ display: "block" }}
             >
-              Weight: {data.weight}g
+              Weight: {product.weight}g
             </Typography>
             <Typography
               variant="caption"
               gutterBottom
               sx={{ display: "block" }}
             >
-              Dimensions: {data.dimensions.width} × {data.dimensions.height} ×{" "}
-              {data.dimensions.depth}cm
+              Dimensions: {product.dimensions.width} ×{" "}
+              {product.dimensions.height} × {product.dimensions.depth}cm
             </Typography>
           </Stack>
 
           <Typography variant="caption" gutterBottom sx={{ display: "block" }}>
-            Stock: {data.stock} {data.availabilityStatus.toLowerCase()}
+            Stock: {product.stock} {product.availabilityStatus.toLowerCase()}
           </Typography>
           <Typography variant="caption" gutterBottom sx={{ display: "flex" }}>
             <LocalShippingIcon sx={{ marginRight: "10px" }} />{" "}
-            {data.shippingInformation}
+            {product.shippingInformation}
           </Typography>
           <Typography variant="caption" gutterBottom sx={{ display: "flex" }}>
             <WorkspacePremiumIcon sx={{ marginRight: "10px" }} />{" "}
-            {data.returnPolicy}
+            {product.returnPolicy}
           </Typography>
         </Stack>
       </Grid>
@@ -149,8 +156,8 @@ export default function ProductDetail() {
         <Stack direction="row" spacing={1}>
           <Box
             component="img"
-            src={data.meta.qrCode || "/react.svg"}
-            alt={data.title}
+            src={product.meta.qrCode || "/react.svg"}
+            alt={product.title}
             loading="lazy"
             onError={(e) => {
               e.target.onerror = null;
@@ -171,31 +178,31 @@ export default function ProductDetail() {
               gutterBottom
               sx={{ display: "block" }}
             >
-              {data.meta.barcode}
+              {product.meta.barcode}
             </Typography>
             <Typography
               variant="caption"
               gutterBottom
               sx={{ display: "block" }}
             >
-              SKU {data.sku}
+              SKU {product.sku}
             </Typography>
             <Typography
               variant="caption"
               gutterBottom
               sx={{ display: "block" }}
             >
-              {data.warrantyInformation}
+              {product.warrantyInformation}
             </Typography>
           </Stack>
         </Stack>
       </Grid>
       <Grid size={{ xs: 12, sm: 6 }}>
         <Typography variant="caption" gutterBottom sx={{ display: "block" }}>
-          Created at {new Date(data.meta.createdAt).toLocaleString()}
+          Created at {new Date(product.meta.createdAt).toLocaleString()}
         </Typography>
         <Typography variant="caption" gutterBottom sx={{ display: "block" }}>
-          Last updated on {new Date(data.meta.updatedAt).toLocaleString()}
+          Last updated on {new Date(product.meta.updatedAt).toLocaleString()}
         </Typography>
       </Grid>
       <Grid size={12}>
@@ -208,14 +215,14 @@ export default function ProductDetail() {
               bgcolor: "background.paper",
             }}
           >
-            {data.reviews.map((review: Review) => (
+            {product.reviews.map((review: Review) => (
               <span
                 key={
                   Math.random() * 1000 +
                   Math.random() * 1000 +
                   review.date +
                   review.reviewerName +
-                  data.title
+                  product.title
                 }
               >
                 <ListItem alignItems="flex-start">
