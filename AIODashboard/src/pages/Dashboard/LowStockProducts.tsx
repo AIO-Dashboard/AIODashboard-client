@@ -12,6 +12,8 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import { useNavigate } from "react-router";
 
+import type { ProductsResponse } from "../../types/Products";
+
 // function createData(
 //   name: string,
 //   calories: number,
@@ -30,11 +32,16 @@ import { useNavigate } from "react-router";
 //   createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
-export default function DenseTable({ lowStockProducts }) {
+export default function DenseTable({
+  lowStockProducts,
+}: {
+  lowStockProducts: ProductsResponse;
+}) {
   const navigate = useNavigate();
   console.log("lowStockProducts:", lowStockProducts);
   const sortedByLowest = lowStockProducts.sort((a, b) => a.stock - b.stock);
-  const handleProductInfoClick = (id: number) => {
+  const handleProductInfoClick = (id: string) => {
+    console.log("Go to product detail:", id);
     navigate(`/products/${id}`);
   };
   return (
@@ -131,7 +138,7 @@ export default function DenseTable({ lowStockProducts }) {
                 <Tooltip title="Product Detail">
                   <IconButton
                     sx={{ padding: "5px" }}
-                    onClick={() => handleProductInfoClick(row.id)}
+                    onClick={() => handleProductInfoClick(row._id)}
                   >
                     <InfoIcon />
                   </IconButton>
