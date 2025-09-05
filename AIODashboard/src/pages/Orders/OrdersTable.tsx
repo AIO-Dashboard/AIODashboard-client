@@ -372,7 +372,9 @@ export default function EnhancedTable(props: OrdersResponse) {
                       {row._id}
                     </TableCell>
                     <TableCell align="left">{row.orderNumber}</TableCell>
-                    <TableCell align="left">{row.customer.name}</TableCell>
+                    <TableCell align="left">
+                      {row.customerId.firstName} {row.customerId.lastName}
+                    </TableCell>
                     <TableCell
                       align="left"
                       sx={{ display: { xs: "none", lg: "table-cell" } }}

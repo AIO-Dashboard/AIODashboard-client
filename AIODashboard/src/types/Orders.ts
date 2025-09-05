@@ -15,7 +15,7 @@ export interface Order {
   updatedAt: string;
   status: "Processing" | "Shipped" | "Delivered" | "Cancelled" | string;
   statusHistory: StatusHistory[];
-  customer: Customer;
+  customerId: Customer;
   shippingAddress: Address;
   billingAddress: Address;
   items: OrderItem[];
@@ -45,8 +45,9 @@ export interface StatusHistory {
 }
 
 export interface Customer {
-  id: number;
-  name: string;
+  _id: string;
+  firstName: string;
+  lastName: string;
   email: string;
   address: Address;
   phone: string;
