@@ -108,7 +108,7 @@ export default function OrderDetail() {
               {/* customer.name shpiingAddress.address .city, .stateCode .postalCode .country 
               customer.phone */}
               <Typography variant="caption" gutterBottom>
-                {order.customer.name}
+                {order.customerId.firstName} {order.customerId.lastName}
               </Typography>
               <Typography variant="caption" gutterBottom>
                 {`${order.shippingAddress.address},
@@ -116,7 +116,7 @@ export default function OrderDetail() {
                 ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
               </Typography>
               <Typography variant="caption" gutterBottom>
-                {order.customer.phone}
+                {order.customerId.phone}
               </Typography>
             </Stack>
           </Grid>
@@ -131,7 +131,7 @@ export default function OrderDetail() {
                 <>
                   {" "}
                   <Typography variant="caption" gutterBottom>
-                    {order.customer.name}
+                    {order.customerId.firstName} {order.customerId.lastName}
                   </Typography>
                   <Typography variant="caption" gutterBottom>
                     {`${order.shippingAddress.address},
@@ -139,7 +139,7 @@ export default function OrderDetail() {
                 ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
                   </Typography>
                   <Typography variant="caption" gutterBottom>
-                    {order.customer.phone}
+                    {order.customerId.phone}
                   </Typography>
                 </>
               ) : (
@@ -156,15 +156,16 @@ export default function OrderDetail() {
               <h2>Customer Info</h2>
             </Typography>
             <Typography variant="caption" gutterBottom>
-              {order.customer.name} ({order.customer.role})
+              {order.customerId.firstName} {order.customerId.lastName} (
+              {order.customerId.role})
             </Typography>
             <Typography variant="caption" gutterBottom>
-              <Link href={`mailto:${order.customer.email}`}>
-                {order.customer.email}
+              <Link href={`mailto:${order.customerId.email}`}>
+                {order.customerId.email}
               </Link>
             </Typography>
             <Typography variant="caption" gutterBottom>
-              {order.customer.phone}
+              {order.customerId.phone}
             </Typography>
           </Stack>
         </Grid>

@@ -54,19 +54,6 @@
 
 import type { Order, Product } from "../types/index";
 
-export function getLowStockProducts(
-  products: Product[],
-  threshold: number = 10
-) {
-  return products.filter((p) => p.stock < threshold);
-}
-
-// types
-// type Product = { id: number; title: string; stock: number; price: number };
-// type OrderItem = { productId: number; quantity: number; unitPrice: number };
-// type Order = { items: OrderItem[]; totalAmount: number };
-// type User = { id: number; name: string };
-
 // 1. Total Revenue
 export function getTotalRevenue(orders: Order[]) {
   return orders.reduce((sum, order) => sum + order.totalAmount, 0);
@@ -74,8 +61,6 @@ export function getTotalRevenue(orders: Order[]) {
 
 // 2. Top Products by Quantity Sold
 export function getTopProducts(orders: Order[], products: Product[], topN = 5) {
-  console.log("getTopProducts orders:", orders);
-  console.log("getTopProducts products:", products);
   const productSales: Record<number, number> = {};
 
   for (const order of orders) {
@@ -84,23 +69,12 @@ export function getTopProducts(orders: Order[], products: Product[], topN = 5) {
         (productSales[item.productId] || 0) + item.quantity;
     }
   }
-  console.log(
-    "getTopProducts getTopProducts:",
-    Object.entries(productSales)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, topN)
-      .map(([productId, qty]) => {
-        const prod = products.find((p) => p._id === productId);
-        return prod ? { ...prod, sold: qty } : null;
-      })
-      .filter(Boolean)
-  );
 
   return Object.entries(productSales)
     .sort((a, b) => b[1] - a[1])
     .slice(0, topN)
     .map(([productId, qty]) => {
-      const prod = products.find((p) => p._id === productId);
+      const prod = products.find((p) => p._id === Number(productId));
       return prod ? { ...prod, sold: qty } : null;
     })
     .filter(Boolean);
@@ -121,22 +95,23 @@ export function getSalesOverTime(orders: (Order & { createdAt: string })[]) {
 }
 
 // 4. Top Customers by Total Spend
-export function getTopCustomers(
-  orders: (Order & { customer: { id: number; name: string } })[],
-  topN = 5
-) {
+export function getTopCustomers(orders: Order[], topN = 5) {
   const customerTotals: Record<
-    number,
-    { id: number; name: string; total: number }
+    string,
+    { id: string; name: string; email: string; total: number }
   > = {};
 
   for (const order of orders) {
-    const { id, name } = order.customer;
-    customerTotals[id] = {
-      name,
-      total: (customerTotals[id]?.total || 0) + order.totalAmount,
-      id: id,
-    };
+    const { _id, firstName, lastName, email } = order.customerId;
+    if (!customerTotals[_id]) {
+      customerTotals[_id] = {
+        id: _id,
+        name: `${firstName} ${lastName}`,
+        email,
+        total: 0,
+      };
+    }
+    customerTotals[_id].total += order.totalAmount;
   }
 
   return Object.values(customerTotals)
@@ -144,10 +119,13 @@ export function getTopCustomers(
     .slice(0, topN);
 }
 
-// // 5. Low Stock Products
-// export function getLowStockProducts(products: Product[], threshold = 10) {
-//   return products.filter((p) => p.stock < threshold);
-// }
+// 5. Low Stock Products
+export function getLowStockProducts(
+  products: Product[],
+  threshold: number = 10
+) {
+  return products.filter((p) => p.stock < threshold);
+}
 
 // 6. Category Distribution
 export function getCategoryDistribution(
@@ -170,13 +148,12 @@ export function getAverageOrderValue(orders: Order[]) {
   return getTotalRevenue(orders) / orders.length;
 }
 
-// 8. Repeat Purchase Ratio (Assumes orders have .customer.id)
-export function getRepeatCustomerRatio(
-  orders: (Order & { customer: { id: number } })[]
-) {
-  const customerOrderCount: Record<number, number> = {};
+// 8. Repeat Purchase Ratio
+export function getRepeatCustomerRatio(orders: Order[]) {
+  const customerOrderCount: Record<string, number> = {};
+
   for (const order of orders) {
-    const id = order.customer.id;
+    const id = order.customerId._id; // embedded customer _id
     customerOrderCount[id] = (customerOrderCount[id] || 0) + 1;
   }
 
