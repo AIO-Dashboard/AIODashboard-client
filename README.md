@@ -33,10 +33,11 @@ Backend Repository: 🔗 [Github](https://github.com/AIO-Dashboard/AIODashboard-
 
 ---
 
-## 📂 Features
+## 📂 Features Overview
 
 - Responsive React + TypeScript dashboard
 - Material UI components & theming
+- Persistent caching with React-Query
 - Interactive charts with Recharts
 - KPI cards and sales/insights visualization
 - API integration with AIODashboard-server
@@ -65,3 +66,50 @@ Backend Repository: 🔗 [Github](https://github.com/AIO-Dashboard/AIODashboard-
    ```bash
    npm run dev
    ```
+
+## 📂 More Features
+
+- Tanstack/React-Query
+  caching & caching persistence - avoids refetching data unnecessarily. API call once, data saved. Reloads dont trigger fetches.
+  staleTime & gcTime - sets expiration of the cached data. (3 & 5 min in-memory cache, 1hr inactivity storaged persistent cache).
+  refreshInterval - triggers the fetch every set time (5min)
+
+<!-- /////////////  -->
+
+#⚡ Performance Optimizations Applied (in-progress)
+
+## Rendering
+
+- Virtualized long lists (infinite scroll)(react-window, react-virtualize)
+- avoided deeply nested JSX/props
+
+## Unnecessary render/update optimizations
+
+- useMemo(), useCallback(), React.memo()
+- no anonymous functions in JSX
+
+## Deprioritization
+
+- useTransition(), useDeferredValue()
+
+## Component optimizations
+
+- Code-split & Lazy loaded
+- Split up large components
+
+## State Management optimizations
+
+- Lift state up sparingly. Use on a need-to-know basis.
+- Avoided prop-drilling
+- Normalized and sliced - kept state atomic. Used nested state sparingly.
+
+## Network & API optimizations
+
+- Debouncing / throttling
+- Cached API response data. Persistently with sessionStorage.
+
+## Build optimizations
+
+- Tree shake - imported only what's necessary
+- Minified, compressed or used a CDN for assets
+- Production build
