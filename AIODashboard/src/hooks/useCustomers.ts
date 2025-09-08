@@ -15,6 +15,8 @@ export const useCustomers = <T>() => {
       if (!res.ok) throw new Error("Failed to fetch users");
       return res.json();
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes expiration
+    refetchInterval: 1000 * 60 * 5, // refetches every 5 minutes
   });
 };
 
@@ -27,5 +29,7 @@ export const useCustomerDetail = <T>(id: string) => {
       return res.json();
     },
     enabled: !!id, //  Prevents fetch if id is empty
+    staleTime: 1000 * 60 * 3, // 3 minutes expiration
+    refetchInterval: 1000 * 60 * 3, // refetches every 3 minutes
   });
 };

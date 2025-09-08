@@ -21,6 +21,8 @@ export const useProducts = <T>() => {
         throw new Error(`Failed to fetch products`);
       }
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes expiration
+    refetchInterval: 1000 * 60 * 5, // refetches every 5 minutes
   });
 };
 
@@ -39,5 +41,7 @@ export const useProductDetail = <T>(id: string) => {
       }
     },
     enabled: !!id, //  Prevents fetch if id is empty
+    staleTime: 1000 * 60 * 3, // 3 minutes expiration
+    refetchInterval: 1000 * 60 * 3, // refetches every 3 minutes
   });
 };
