@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Container } from "@mui/material";
 
 import styles from "./App.module.scss";
 import Header from "./components/Header/Header";
+import Dashboard from "./pages/Dashboard/Dashboard";
+/*
 import Sidebar from "./components/Sidebar/Sidebar";
 import Toast from "./components/Toast/Toast";
-// TODO Use Dynamic imports and lazy loading later along with other optimization techniques
+
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 
@@ -23,12 +25,41 @@ import CustomerDetail from "./pages/Customer/CustomerDetail";
 
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound/NotFound";
+*/
+const Sidebar = React.lazy(() => import("./components/Sidebar/Sidebar"));
+const Toast = React.lazy(() => import("./components/Toast/Toast"));
+
+const Login = React.lazy(() => import("./pages/Login/Login"));
+// const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));  // causes ugly white flash
+
+const Products = React.lazy(() => import("./pages/Products/Products"));
+const ProductCreate = React.lazy(
+  () => import("./pages/Products/ProductCreate")
+);
+const ProductDetail = React.lazy(
+  () => import("./pages/Products/ProductDetail")
+);
+
+const Orders = React.lazy(() => import("./pages/Orders/Orders"));
+const OrderDetail = React.lazy(() => import("./pages/Orders/OrderDetail"));
+
+const Customers = React.lazy(() => import("./pages/Customer/Customers"));
+const CustomerDetail = React.lazy(
+  () => import("./pages/Customer/CustomerDetail")
+);
+
+const Settings = React.lazy(() => import("./pages/Settings"));
+const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { useAuth } from "./context/AuthContext/AuthContext";
 
 import { useColorScheme } from "@mui/material/styles";
-import IntroBackdrop from "./components/IntroBackdrop/IntroBackdrop.widget";
+
+const IntroBackdrop = React.lazy(
+  () => import("./components/IntroBackdrop/IntroBackdrop.widget")
+);
+
 function App() {
   const { mode, setMode } = useColorScheme();
   // if (!mode) {

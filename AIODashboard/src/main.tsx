@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { Suspense, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.scss";
 import App from "./App.tsx";
@@ -26,7 +26,9 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
-            <App />
+            <Suspense fallback={<>Loading</>}>
+              <App />
+            </Suspense>
           </ThemeProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

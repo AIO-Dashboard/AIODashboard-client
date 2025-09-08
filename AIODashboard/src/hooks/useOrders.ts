@@ -15,6 +15,8 @@ export const useOrders = <T>() =>
       if (!res.ok) throw new Error("Failed to fetch orders");
       return res.json();
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes expiration
+    refetchInterval: 1000 * 60 * 5, // refetches every 5 minutes
   });
 
 export const useOrderDetail = <T>(id: string) =>
@@ -28,4 +30,6 @@ export const useOrderDetail = <T>(id: string) =>
       return res.json();
     },
     enabled: !!id,
+    staleTime: 1000 * 60 * 3, // 3 minutes expiration
+    refetchInterval: 1000 * 60 * 3, // refetches every 3 minutes
   });
